@@ -54,6 +54,10 @@
           if (entry.isIntersecting) {
             entry.target.classList.add('in');
             observer.unobserve(entry.target);
+            // Reset any stagger transition-delay after fade-in so hover is instant
+            entry.target.addEventListener('transitionend', () => {
+              entry.target.style.transitionDelay = '0s';
+            }, { once: true });
           }
         });
       },
@@ -325,8 +329,10 @@
     });
     container.style.width = maxW + 'px';
 
-    // Activate first word
-    items[0].classList.add('wc-active');
+    // Activate first word — after one frame so transition fires consistently
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => items[0].classList.add('wc-active'));
+    });
 
     setInterval(() => {
       const prev = current;
@@ -334,10 +340,11 @@
 
       items[prev].classList.remove('wc-active');
       items[prev].classList.add('wc-past');
-      items[current].classList.add('wc-active');
+      // One frame delay ensures outgoing transition starts before incoming
+      requestAnimationFrame(() => items[current].classList.add('wc-active'));
 
-      setTimeout(() => items[prev].classList.remove('wc-past'), 650);
-    }, 2200);
+      setTimeout(() => items[prev].classList.remove('wc-past'), 500);
+    }, 2400);
   }
 
   /* ── Kontakt form hover → heading color swap ── */
