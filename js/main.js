@@ -446,92 +446,9 @@
     });
   }
 
-  /* ── Rezultati canvas particle background ── */
-  function initRezultatiCanvas() {
-    const canvas = document.getElementById('rezultatiCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const section = canvas.closest('.rezultati');
-    let W, H, particles;
-
-    const GOLD     = [201, 160, 54];
-    const GREEN    = [30, 90, 50];
-    const COUNT    = 55;
-    const MAX_DIST = 130;
-
-    function resize() {
-      W = canvas.width  = section.offsetWidth;
-      H = canvas.height = section.offsetHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    function mkParticle() {
-      const isGold = Math.random() > 0.38;
-      const [r, g, b] = isGold ? GOLD : GREEN;
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.28,
-        vy: -(Math.random() * 0.35 + 0.08),
-        size: Math.random() * 1.6 + 0.4,
-        alpha: Math.random() * 0.45 + 0.1,
-        r, g, b,
-      };
-    }
-
-    particles = Array.from({ length: COUNT }, mkParticle);
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-
-      // Connection lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MAX_DIST) {
-            const a = (1 - dist / MAX_DIST) * 0.07;
-            const p = particles[i];
-            ctx.strokeStyle = `rgba(${p.r},${p.g},${p.b},${a})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Dots
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${p.alpha})`;
-        ctx.fill();
-      });
-
-      // Move
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -10) { Object.assign(p, mkParticle()); p.y = H + 5; }
-        if (p.x < -10) p.x = W + 5;
-        if (p.x > W + 10) p.x = -5;
-      });
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
   /* ── Init ── */
   initTypewriter();
   initProgramiShader();
-  initRezultatiCanvas();
   initWordCycle();
   initKontaktHover();
   initOrbitalBenefits();
