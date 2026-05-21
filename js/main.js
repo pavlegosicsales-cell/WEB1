@@ -356,10 +356,101 @@
     kontaktForm.addEventListener('mouseleave', () => heading.classList.remove('form-hover'));
   }
 
+  /* ── Orbital benefits animation ── */
+  function initOrbitalBenefits() {
+    const wrap = document.getElementById('orbWrap');
+    if (!wrap) return;
+
+    const RADIUS = 182;
+    const SPEED  = 0.007; // rad per frame at 60 fps
+    let angle      = 0;
+    let autoRotate = true;
+    let activeIdx  = null;
+    let lastTs     = null;
+
+    const nodes     = Array.from(wrap.querySelectorAll('.orb-node'));
+    const panelHint = document.querySelector('.orb-panel__hint');
+    const panelInfo = document.getElementById('orbPanelInfo');
+    const panelTitle = document.getElementById('orbPanelTitle');
+    const panelDesc  = document.getElementById('orbPanelDesc');
+
+    function getPos(i, total, rot) {
+      // first node starts at 12 o'clock (−π/2)
+      const a = (i / total) * Math.PI * 2 - Math.PI / 2 + rot;
+      const x = Math.cos(a) * RADIUS;
+      const y = Math.sin(a) * RADIUS;
+      const depth = (Math.sin(a + Math.PI / 2) + 1) / 2; // 0=back 1=front
+      return { x, y, depth };
+    }
+
+    function updatePositions() {
+      const total = nodes.length;
+      nodes.forEach((node, i) => {
+        const { x, y, depth } = getPos(i, total, angle);
+        const scale   = 0.8 + 0.2 * depth;
+        const opacity = activeIdx === null
+          ? 0.45 + 0.55 * depth
+          : (i === activeIdx ? 1 : 0.18 + 0.22 * depth);
+        const z = i === activeIdx ? 100 : Math.round(20 + 70 * depth);
+        node.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${scale})`;
+        node.style.opacity   = opacity;
+        node.style.zIndex    = z;
+      });
+    }
+
+    function raf(ts) {
+      if (lastTs !== null && autoRotate) {
+        const dt = Math.min(ts - lastTs, 50);
+        angle = (angle + SPEED * (dt / 16.67)) % (Math.PI * 2);
+      }
+      lastTs = ts;
+      updatePositions();
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    function activate(i) {
+      nodes.forEach(n => n.classList.remove('is-active'));
+      nodes[i].classList.add('is-active');
+      activeIdx  = i;
+      autoRotate = false;
+      if (panelHint) panelHint.style.display = 'none';
+      if (panelInfo) {
+        panelTitle.textContent = nodes[i].dataset.title;
+        panelDesc.textContent  = nodes[i].dataset.desc;
+        panelInfo.style.display = 'flex';
+      }
+      updatePositions();
+    }
+
+    function deactivate() {
+      nodes.forEach(n => n.classList.remove('is-active'));
+      activeIdx  = null;
+      autoRotate = true;
+      if (panelHint) panelHint.style.display = '';
+      if (panelInfo) panelInfo.style.display = 'none';
+      updatePositions();
+    }
+
+    nodes.forEach((node, i) => {
+      node.addEventListener('click', e => {
+        e.stopPropagation();
+        activeIdx === i ? deactivate() : activate(i);
+      });
+    });
+
+    wrap.addEventListener('click', e => {
+      if (!e.target.closest('.orb-node') && !e.target.closest('.orb-center')) {
+        deactivate();
+      }
+    });
+  }
+
   /* ── Init ── */
   initTypewriter();
   initProgramiShader();
   initWordCycle();
   initKontaktHover();
+  initOrbitalBenefits();
 
 })();
