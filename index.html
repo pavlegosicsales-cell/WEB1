@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Therapeutica — Healthy & Wealthy | Dr. Dragana Lombardelli</title>
+  <meta name="description" content="Naturopatija, psihosomatika i holistička transformacija tela, uma i duha. Dr. Dragana Lombardelli — osnivač Udruženja naturopata Srbije." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__brand">
+        <img src="assets/logo.png" alt="Therapeutica" class="nav__logo" />
+        <div class="nav__brand-text">
+          <span class="nav__name">THERAPEUTICA</span>
+          <span class="nav__sub">HEALTHY &amp; WEALTHY</span>
+        </div>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="#pristup">Pristup</a></li>
+        <li><a href="#programi">Programi</a></li>
+        <li><a href="#o-meni">O meni</a></li>
+        <li><a href="#metode">Metode</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+
+      <a href="#kontakt" class="btn btn--gold btn--sm nav__cta">Zakaži termin</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Otvori meni">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="#pristup">Pristup</a></li>
+        <li><a href="#programi">Programi</a></li>
+        <li><a href="#o-meni">O meni</a></li>
+        <li><a href="#metode">Metode</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <a href="#kontakt" class="btn btn--gold">Zakaži termin</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="hero">
+
+    <!-- Animated background orbs -->
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+      <div class="hero__orb hero__orb--4"></div>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__left">
+        <p class="hero__kicker hero-load-1">
+          <span class="kicker-line"></span>
+          Naturopatija · Psihosomatika · Transformacija
+        </p>
+
+        <h1 class="hero__h1 hero-load-2">
+          Dubinska<br />
+          transformacija<br />
+          <em class="hero__h1-em">
+            <span class="word-cycle" aria-live="polite">
+              <span class="word-cycle__item">tela</span>
+              <span class="word-cycle__item">uma</span>
+              <span class="word-cycle__item">duha</span>
+            </span>
+          </em>
+        </h1>
+
+        <p class="hero__desc hero-load-3">
+          Naučno utemeljeni naturopatski protokoli koji otkrivaju uzrok,
+          ne samo simptom. Svaki organizam ima svoju priču —
+          svaki program je individualno prilagođen.
+        </p>
+
+        <div class="hero__actions hero-load-4">
+          <a href="#kontakt" class="btn btn--gradient">
+            <span>Zakaži konsultaciju</span>
+            <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+          <a href="#programi" class="btn btn--ghost">Pogledaj programe</a>
+        </div>
+
+        <div class="hero__trust hero-load-5">
+          <div class="trust-card">
+            <strong>15+</strong>
+            <span>godina iskustva</span>
+          </div>
+          <div class="trust-card">
+            <strong>Osnivač UNS</strong>
+            <span>Udruženja naturopata Srbije</span>
+          </div>
+          <div class="trust-card">
+            <strong>Riza Institut</strong>
+            <span>Bologna, Italija</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__right hero-load-photo">
+        <div class="hero__photo-wrap">
+          <div class="hero__ring"></div>
+          <div class="hero__photo-box">
+            <img
+              src="assets/dragana.jpg"
+              alt="Dr. Dragana Blagojevic Lombardelli"
+              class="hero__photo"
+            />
+            <div class="hero__photo-overlay"></div>
+          </div>
+
+          <div class="hero__badge hero__badge--tl">
+            <span class="badge-dot"></span>
+            <div>
+              <b>Naturopatija</b>
+              <span>Holistički pristup</span>
+            </div>
+          </div>
+
+          <div class="hero__badge hero__badge--br">
+            <span class="badge-dot"></span>
+            <div>
+              <b>Psihosomatika</b>
+              <span>Telo &amp; um</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal marquee ticker -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__row">
+        <div class="ticker__track">
+          <span>Naturopatija</span><span class="ticker__sep">·</span>
+          <span>Psihosomatika</span><span class="ticker__sep">·</span>
+          <span>Bahove kapi</span><span class="ticker__sep">·</span>
+          <span>WingWave Coaching</span><span class="ticker__sep">·</span>
+          <span>Refleksologija stopala</span><span class="ticker__sep">·</span>
+          <span>Kvantna harmonizacija</span><span class="ticker__sep">·</span>
+          <span>Fitoterapija</span><span class="ticker__sep">·</span>
+          <span>Emocionalni reset</span><span class="ticker__sep">·</span>
+          <span>Iridologija</span><span class="ticker__sep">·</span>
+          <span>Holističko zdravlje</span><span class="ticker__sep">·</span>
+        </div>
+        <div class="ticker__track" aria-hidden="true">
+          <span>Naturopatija</span><span class="ticker__sep">·</span>
+          <span>Psihosomatika</span><span class="ticker__sep">·</span>
+          <span>Bahove kapi</span><span class="ticker__sep">·</span>
+          <span>WingWave Coaching</span><span class="ticker__sep">·</span>
+          <span>Refleksologija stopala</span><span class="ticker__sep">·</span>
+          <span>Kvantna harmonizacija</span><span class="ticker__sep">·</span>
+          <span>Fitoterapija</span><span class="ticker__sep">·</span>
+          <span>Emocionalni reset</span><span class="ticker__sep">·</span>
+          <span>Iridologija</span><span class="ticker__sep">·</span>
+          <span>Holističko zdravlje</span><span class="ticker__sep">·</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ PRISTUP ══════════ -->
+  <section class="pristup" id="pristup">
+    <div class="container">
+      <div class="pristup__inner">
+
+        <div class="pristup__left">
+          <div class="pristup__step fade-up">
+            <div class="pristup__num">01</div>
+            <div class="pristup__step-text">
+              <h4>Telo</h4>
+              <p>Fitoterapija, antiupalna ishrana, hidroterapija, detoks i fizička aktivnost prilagođena vašem tipu organizma.</p>
+            </div>
+          </div>
+          <div class="pristup__connector"></div>
+          <div class="pristup__step fade-up">
+            <div class="pristup__num">02</div>
+            <div class="pristup__step-text">
+              <h4>Um</h4>
+              <p>WingWave coaching, psihosomatski rad, meditacija, disanje i emocionalni detoks.</p>
+            </div>
+          </div>
+          <div class="pristup__connector"></div>
+          <div class="pristup__step fade-up">
+            <div class="pristup__num">03</div>
+            <div class="pristup__step-text">
+              <h4>Duh</h4>
+              <p>Bahove kapi, kvantna harmonizacija, refleksologija i rad na energetskom nivou.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pristup__right fade-up">
+          <span class="section-label">Therapeutica metoda</span>
+          <h2 class="section-h2">
+            Zdravlje nije<br />
+            odsustvo bolesti.<br />
+            <em>To je ravnoteža.</em>
+          </h2>
+          <div class="pristup__text-card">
+            <p class="pristup__body">
+              U naturopatiji simptom nije neprijatelj — već signal tela da je
+              došlo do neravnoteže. Therapeutica metoda kombinuje naučno
+              utemeljene naturopatske protokole sa psihosomatskim pristupom,
+              radeći na uzroku.
+            </p>
+            <p class="pristup__body">
+              Jer telo, um i duh nisu odvojeni sistemi — oni su jedno.
+            </p>
+          </div>
+          <a href="#programi" class="btn btn--gold-outline">
+            <span>Istraži programe</span>
+            <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROGRAMI ══════════ -->
+  <section class="programi" id="programi">
+    <canvas class="programi__canvas" id="programiCanvas" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">Naturopatski programi</span>
+        <h2 class="section-h2">
+          Protokoli koji menjaju<br /><em>kvalitet života</em>
+        </h2>
+        <p class="section-desc">
+          Svaki program uključuje detaljan naturopatski protokol — ishrana,
+          biljna podrška, rituali i emocionalna komponenta.
+        </p>
+      </div>
+
+      <div class="cards">
+
+        <!-- Card 1 -->
+        <article class="card fade-up">
+          <div class="card__tag">Naturopatski program</div>
+          <div class="card__icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <circle cx="13" cy="13" r="11"/>
+              <path d="M13 7v1M13 18v1M7 13h1M18 13h1"/>
+              <circle cx="13" cy="13" r="4"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Nesanica &amp;<br />Bahove kapi</h3>
+          <p class="card__desc">
+            Sveobuhvatan protokol za obnavljanje prirodnog ritma sna.
+            Smirivanje nervnog sistema, smanjenje kortizola i emocionalna
+            podrška kroz Bahove cvetne esencije.
+          </p>
+          <ul class="card__list">
+            <li>Ishrana za miran nervni sistem</li>
+            <li>Večernji ritual &amp; disanje</li>
+            <li>Biljna &amp; emocionalna podrška</li>
+            <li>Individualni Bahove kapi protokol</li>
+          </ul>
+          <div class="card__footer">
+            <span class="card__price">100€</span>
+            <a href="#kontakt" class="btn btn--gold btn--sm">Saznaj više</a>
+          </div>
+        </article>
+
+        <!-- Card 2 - featured -->
+        <article class="card card--featured fade-up">
+          <div class="card__featured-tag">Preporučeno</div>
+          <div class="card__tag">Naturopatski program</div>
+          <div class="card__icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <circle cx="13" cy="13" r="11"/>
+              <path d="M13 8v5l3 2"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Opstruktivna<br />apneja u snu</h3>
+          <p class="card__desc">
+            Kompletan protokol koji smanjuje upalu disajnih puteva,
+            poboljšava oksigenaciju i podržava nervni sistem za dublji i
+            kvalitetniji san bez prekida.
+          </p>
+          <ul class="card__list">
+            <li>Anti-upalna ishrana &amp; omega-3</li>
+            <li>Večernja rutina &amp; inhalacije</li>
+            <li>Miofunkcionalne vežbe</li>
+            <li>Emocionalna &amp; nervna podrška</li>
+          </ul>
+          <div class="card__footer">
+            <span class="card__price">100€</span>
+            <a href="#kontakt" class="btn btn--gold btn--sm">Saznaj više</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card fade-up">
+          <div class="card__tag">Emocionalni program</div>
+          <div class="card__icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <path d="M13 22C13 22 3 16 3 9a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 7-10 13-10 13z"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Emocionalni reset<br />uz Bahove kapi</h3>
+          <p class="card__desc">
+            Nežna, ali duboka podrška nervnom sistemu. Bahove cvetne
+            esencije vraćaju emocionalnu ravnotežu — za one koji su
+            predugo bili jaki.
+          </p>
+          <ul class="card__list">
+            <li>Individualni odabir esencija</li>
+            <li>Protokol za stres &amp; anksioznost</li>
+            <li>Emocionalni detoks</li>
+            <li>Hormonalni &amp; nervni balans</li>
+          </ul>
+          <div class="card__footer">
+            <span class="card__price">100€</span>
+            <a href="#kontakt" class="btn btn--gold btn--sm">Saznaj više</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ O MENI ══════════ -->
+  <section class="about" id="o-meni">
+    <div class="container">
+      <div class="about__inner">
+
+        <div class="about__photo-col">
+          <div class="about__photo-wrap fade-up">
+            <div class="about__photo-box">
+              <img src="assets/dragana.jpg" alt="Dr. Dragana Blagojevic Lombardelli" class="about__photo" />
+              <div class="about__photo-overlay"></div>
+            </div>
+          </div>
+          <blockquote class="about__quote fade-up">
+            <svg class="about__quote-icon" width="32" height="24" viewBox="0 0 48 36" fill="none" aria-hidden="true">
+              <path d="M0 36V22.8C0 16.4 1.6 11.2 4.8 7.2C8 3.2 12.8 1 19.2 0.4L21.6 4C18.4 4.8 16 6.4 14.4 8.8C12.8 11.2 12 13.6 12 16H20V36H0ZM28 36V22.8C28 16.4 29.6 11.2 32.8 7.2C36 3.2 40.8 1 47.2 0.4L48 4C44.8 4.8 42.4 6.4 40.8 8.8C39.2 11.2 38.4 13.6 38.4 16H46.4V36H28Z" fill="currentColor"/>
+            </svg>
+            <p>„Vaše zdravlje, vaša transformacija. Put počinje iznutra, jednom odlukom da preslušate telo."</p>
+            <cite>— Dr. Dragana Lombardelli</cite>
+          </blockquote>
+        </div>
+
+        <div class="about__text">
+          <span class="section-label">O meni</span>
+          <h2 class="section-h2">
+            Dr. Dragana<br />
+            Lombardelli
+          </h2>
+          <p class="about__role">Terapeut · Naturopata · Psihosomatski stručnjak</p>
+
+          <div class="about__bio-card">
+            <p class="about__bio">
+              Diplomirala sam holističku medicinu, psihosomatiku i naturopatiju
+              na institutu Riza u Bolonji, nakon višegodišnjeg iskustva u
+              medicinskim centrima u Italiji — uključujući termalni stacionar
+              Terme Santa Lucia.
+            </p>
+            <p class="about__bio">
+              Od 2016. sarađujem sa medicinskim centrima u Beogradu, držim
+              predavanja i radionice, i pišem za vodeće zdravstvene časopise.
+              Imala sam čast da predajem uz Novaka Đokovića na temu holističkog
+              pristupa deci u sportu.
+            </p>
+            <p class="about__bio">
+              Moj pristup počiva na uvjerenju da simptom nije neprijatelj — već
+              signal. Kombinujem više od 30 terapijskih metoda koje zajedno
+              čine Therapeutica metodu: personalizovani protokol koji istovremeno
+              radi na fizičkom, emocionalnom i energetskom nivou.
+            </p>
+            <p class="about__bio">
+              Kao autorka knjige „Naturopatija — Priručnik za empatiju tela, uma
+              i duha", educujem i opunomoćujem ljude da preuzmu odgovornost za
+              sopstveno zdravlje. Osnovala sam Udruženje naturopata Srbije i
+              predajem u okviru akreditovanih programa u Srbiji i inostranstvu.
+            </p>
+          </div>
+
+          <div class="creds">
+            <div class="cred fade-up">
+              <div class="cred__num">01</div>
+              <div class="cred__text">
+                <b>Osnivač i predsednik</b>
+                <span>Udruženja naturopata Srbije</span>
+              </div>
+            </div>
+            <div class="cred fade-up">
+              <div class="cred__num">02</div>
+              <div class="cred__text">
+                <b>Član federacije</b>
+                <span>Italijanskih naturopata — Riza, Milano</span>
+              </div>
+            </div>
+            <div class="cred fade-up">
+              <div class="cred__num">03</div>
+              <div class="cred__text">
+                <b>Autor knjige</b>
+                <span>„Naturopatija — Priručnik za empatiju tela, uma i duha"</span>
+              </div>
+            </div>
+            <div class="cred fade-up">
+              <div class="cred__num">04</div>
+              <div class="cred__text">
+                <b>Saradnik</b>
+                <span>Lekarskog udruženja Srbije</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ METODE ══════════ -->
+  <section class="metode" id="metode">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <span class="section-label">Terapeutski repertoar</span>
+        <h2 class="section-h2">Metode kojima<br /><em>radim sa vama</em></h2>
+      </div>
+
+      <div class="metode__grid">
+        <div class="metode__item fade-up" data-n="01">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 22V12M12 12C12 7 7 4 2 5c0 5 3 9 10 7M12 12c0-5 5-8 10-7-1 5-4 9-10 7"/></svg>
+          </div>
+          <h4>Naturopatija</h4>
+          <p>Fitoterapija, gemmoterapija, homeopatija i oligo terapija mineralima</p>
+        </div>
+        <div class="metode__item fade-up" data-n="02">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg>
+          </div>
+          <h4>Bahove kapi</h4>
+          <p>Cvetne esencije za emocionalnu ravnotežu i mentalno blagostanje</p>
+        </div>
+        <div class="metode__item fade-up" data-n="03">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>WingWave coaching</h4>
+          <p>NLP, kognitivna psihologija i bilateralna stimulacija mozga</p>
+        </div>
+        <div class="metode__item fade-up" data-n="04">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          </div>
+          <h4>Refleksologija stopala</h4>
+          <p>Stimulacija refleksoloških tačaka za sistemski balans i bolji san</p>
+        </div>
+        <div class="metode__item fade-up" data-n="05">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h4>Kvantna harmonizacija</h4>
+          <p>Quantum Entrainment — usklađivanje energije tela na dubokom nivou</p>
+        </div>
+        <div class="metode__item fade-up" data-n="06">
+          <div class="metode__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h4>Psihosomatika</h4>
+          <p>Veza emocija i fizičkih simptoma — tehnike telo-um i disanje</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CITAT ══════════ -->
+  <section class="citat">
+    <div class="container">
+      <div class="citat__inner">
+        <svg class="citat__quote-icon fade-up" width="48" height="36" viewBox="0 0 48 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 36V22.8C0 16.4 1.6 11.2 4.8 7.2C8 3.2 12.8 1 19.2 0.4L21.6 4C18.4 4.8 16 6.4 14.4 8.8C12.8 11.2 12 13.6 12 16H20V36H0ZM28 36V22.8C28 16.4 29.6 11.2 32.8 7.2C36 3.2 40.8 1 47.2 0.4L48 4C44.8 4.8 42.4 6.4 40.8 8.8C39.2 11.2 38.4 13.6 38.4 16H46.4V36H28Z" fill="currentColor"/>
+        </svg>
+        <blockquote class="citat__text" id="typewriterText">
+          „Stres nije samo mentalni pritisak.<br />
+          To je način na koji telo pokušava<br />
+          da vam kaže da ste predugo bili jaki."
+        </blockquote>
+        <cite class="citat__by">— Dr. Dragana Lombardelli</cite>
+        <a href="#kontakt" class="btn btn--gold">Zakaži besplatnu konsultaciju</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TESTIMONIJALI ══════════ -->
+  <section class="testimonials" id="iskustva">
+    <div class="container">
+      <div class="testimonials__header fade-up" style="--delay:0s">
+        <span class="section-label">Iskustva klijenata</span>
+        <h2 class="section-h2">Šta kažu oni koji su<br /><em>prošli put</em></h2>
+        <p class="section-desc">Svaki put je jedinstven. Svaka transformacija — duboka i trajna.</p>
+      </div>
+    </div>
+
+    <div class="testimonials__viewport">
+      <div class="testimonials__cols">
+
+        <!-- Column 1 -->
+        <div class="testimonials__col">
+          <div class="testimonials__col-inner testimonials__col-inner--1">
+            <div class="tcard">
+              <p>„Nakon dva meseca programa za nesanicu, konačno spavam 7-8 sati bez prekida. Dr. Dragana je pronašla uzrok koji moji lekari godinama nisu uspeli."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Milena J." />
+                <div><b>Milena Jovanović</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Emocionalni reset uz Bahove kapi promenio je moj odnos prema stresu. Više nisam reaktivan — konačno sam u kontroli svog unutrašnjeg sveta."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aleksandar M." />
+                <div><b>Aleksandar Mitrović</b><span>Novi Sad</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Holističkim pristupom rešila sam hronični umor za koji su mi govorili da je normalan. Nije bio — bila sam iscrpljena. Sada imam energiju za život."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jovana P." />
+                <div><b>Jovana Petrović</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="tcard">
+              <p>„Nakon dva meseca programa za nesanicu, konačno spavam 7-8 sati bez prekida. Dr. Dragana je pronašla uzrok koji moji lekari godinama nisu uspeli."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Milena J." />
+                <div><b>Milena Jovanović</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Emocionalni reset uz Bahove kapi promenio je moj odnos prema stresu. Više nisam reaktivan — konačno sam u kontroli svog unutrašnjeg sveta."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aleksandar M." />
+                <div><b>Aleksandar Mitrović</b><span>Novi Sad</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Holističkim pristupom rešila sam hronični umor za koji su mi govorili da je normalan. Nije bio — bila sam iscrpljena. Sada imam energiju za život."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jovana P." />
+                <div><b>Jovana Petrović</b><span>Beograd</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="testimonials__col testimonials__col--md">
+          <div class="testimonials__col-inner testimonials__col-inner--2">
+            <div class="tcard">
+              <p>„Program za apneju u snu prevazišao je sva moja očekivanja. Bez aparata, bez lekova — samo prirodna rešenja koja zaista deluju."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Stefan Đ." />
+                <div><b>Stefan Đorđević</b><span>Kruševac</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„WingWave coaching u kombinaciji sa fitoterapijom vratio mi je fokus i energiju kakvu nisam imala od studija. Trajno rešenje, ne privremeno."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Maja S." />
+                <div><b>Maja Stanković</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Dr. Dragana je jedina koja je razumela da moji fizički simptomi imaju emocionalnu pozadinu. Terapija je promenila moj svakodnevni život."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/57.jpg" alt="Nikola L." />
+                <div><b>Nikola Lazović</b><span>Subotica</span></div>
+              </div>
+            </div>
+            <!-- Duplicate -->
+            <div class="tcard">
+              <p>„Program za apneju u snu prevazišao je sva moja očekivanja. Bez aparata, bez lekova — samo prirodna rešenja koja zaista deluju."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Stefan Đ." />
+                <div><b>Stefan Đorđević</b><span>Kruševac</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„WingWave coaching u kombinaciji sa fitoterapijom vratio mi je fokus i energiju kakvu nisam imala od studija. Trajno rešenje, ne privremeno."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Maja S." />
+                <div><b>Maja Stanković</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Dr. Dragana je jedina koja je razumela da moji fizički simptomi imaju emocionalnu pozadinu. Terapija je promenila moj svakodnevni život."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/57.jpg" alt="Nikola L." />
+                <div><b>Nikola Lazović</b><span>Subotica</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="testimonials__col testimonials__col--lg">
+          <div class="testimonials__col-inner testimonials__col-inner--3">
+            <div class="tcard">
+              <p>„Hormonalni balans koji nisam imala godinama — postignut za tri meseca prirodnim putem. Sveobuhvatan pristup koji doista funkcioniše."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="Tamara I." />
+                <div><b>Tamara Ilić</b><span>Niš</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Bio sam skeptičan, ali rezultati govore sami za sebe. Manje stresa, bolji san, više energije. Preporučujem svima koji žele stvarnu promenu."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Marko V." />
+                <div><b>Marko Vasić</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Bahove kapi deluju neverovatno suptilno ali duboko. Osećam se emotivno stabilnija nego ikad. Ovo je promjena koju nisam znala da mi je potrebna."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="Ivana S." />
+                <div><b>Ivana Simić</b><span>Novi Sad</span></div>
+              </div>
+            </div>
+            <!-- Duplicate -->
+            <div class="tcard">
+              <p>„Hormonalni balans koji nisam imala godinama — postignut za tri meseca prirodnim putem. Sveobuhvatan pristup koji doista funkcioniše."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="Tamara I." />
+                <div><b>Tamara Ilić</b><span>Niš</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Bio sam skeptičan, ali rezultati govore sami za sebe. Manje stresa, bolji san, više energije. Preporučujem svima koji žele stvarnu promenu."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Marko V." />
+                <div><b>Marko Vasić</b><span>Beograd</span></div>
+              </div>
+            </div>
+            <div class="tcard">
+              <p>„Bahove kapi deluju neverovatno suptilno ali duboko. Osećam se emotivno stabilnija nego ikad. Ovo je promjena koju nisam znala da mi je potrebna."</p>
+              <div class="tcard__author">
+                <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="Ivana S." />
+                <div><b>Ivana Simić</b><span>Novi Sad</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ KONTAKT ══════════ -->
+  <section class="kontakt" id="kontakt">
+    <div class="container">
+      <div class="kontakt__inner">
+
+        <div class="kontakt__left">
+          <span class="section-label">Kontakt</span>
+          <h2 class="section-h2 kontakt__heading">
+            <span class="kontakt__heading-top">Počnite svoju</span><br /><em>transformaciju</em>
+          </h2>
+          <p class="kontakt__desc">
+            Prva konsultacija je besplatna. Razgovarajmo o vašim ciljevima
+            i pronađimo protokol koji je pravi za vas.
+          </p>
+          <a
+            href="https://instagram.com/therapeutica.lombardelli"
+            class="kontakt__ig"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            <span>@therapeutica.lombardelli</span>
+            <span class="ig-arrow">→</span>
+          </a>
+        </div>
+
+        <form class="kontakt__form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Ime i prezime</label>
+              <input type="text" id="name" name="name" placeholder="Vaše ime" required />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail adresa</label>
+              <input type="email" id="email" name="email" placeholder="vas@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="program">Program koji vas zanima</label>
+            <select id="program" name="program">
+              <option value="">Izaberite program (opciono)</option>
+              <option value="nesanica">Nesanica &amp; Bahove kapi — 100€</option>
+              <option value="apneja">Apneja u snu — 100€</option>
+              <option value="emocionalni">Emocionalni reset uz Bahove kapi — 100€</option>
+              <option value="konsultacija">Besplatna konsultacija</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Poruka</label>
+            <textarea id="message" name="message" rows="4" placeholder="Opišite šta vas muči ili šta biste voleli da promenite..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--gold btn--full" id="submitBtn">Pošalji poruku</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <!-- Glow blobs -->
+    <div class="footer__blob footer__blob--1" aria-hidden="true"></div>
+    <div class="footer__blob footer__blob--2" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="footer__glass fade-up">
+
+        <!-- Left: brand -->
+        <div class="footer__brand-col">
+          <a href="#" class="footer__brand-link">
+            <img src="assets/logo.png" alt="Therapeutica" class="footer__logo" />
+            <div>
+              <p class="footer__brand-name">THERAPEUTICA</p>
+              <p class="footer__brand-tag">HEALTHY &amp; WEALTHY</p>
+            </div>
+          </a>
+          <p class="footer__desc">
+            Naturopatski programi koji otkrivaju uzrok, ne samo simptom.
+            Svaki protokol je individualno prilagođen vašem telu, umu i duhu.
+          </p>
+          <div class="footer__socials">
+            <a href="https://instagram.com/therapeutica.lombardelli" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: nav columns -->
+        <nav class="footer__nav">
+          <div class="footer__col">
+            <h5>Navigacija</h5>
+            <ul>
+              <li><a href="#pristup">Pristup</a></li>
+              <li><a href="#programi">Programi</a></li>
+              <li><a href="#o-meni">O meni</a></li>
+              <li><a href="#metode">Metode</a></li>
+              <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Programi</h5>
+            <ul>
+              <li><a href="#programi">Nesanica &amp; Bahove kapi</a></li>
+              <li><a href="#programi">Apneja u snu</a></li>
+              <li><a href="#programi">Emocionalni reset</a></li>
+              <li><a href="#kontakt">Besplatna konsultacija</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Kontakt</h5>
+            <ul>
+              <li><a href="mailto:dragana@therapeutica.rs">dragana@therapeutica.rs</a></li>
+              <li><a href="https://instagram.com/therapeutica.lombardelli" target="_blank" rel="noopener">@therapeutica.lombardelli</a></li>
+              <li><a href="#kontakt">Zakaži termin</a></li>
+            </ul>
+          </div>
+        </nav>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2026 Therapeutica by Dragana Lombardelli. Sva prava zadržana.</p>
+        <p class="footer__note">Naturopatski programi su edukativnog i suportivnog karaktera i ne zamenjuju medicinsku dijagnostiku.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
