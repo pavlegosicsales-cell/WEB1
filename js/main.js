@@ -291,6 +291,9 @@
     window.addEventListener('resize', resize);
     resize();
 
+    // All setup succeeded — show canvas
+    canvas.style.display = 'block';
+
     const t0 = Date.now();
     function render() {
       requestAnimationFrame(render);
@@ -446,11 +449,31 @@
     });
   }
 
+  /* ── Features strip marquee (mobile right-to-left) ── */
+  function initFeaturesMarquee() {
+    const strip = document.querySelector('.features-strip');
+    const inner = document.querySelector('.features-strip__inner');
+    if (!strip || !inner) return;
+    let activated = false;
+
+    function check() {
+      if (window.innerWidth <= 768 && !activated) {
+        inner.innerHTML = inner.innerHTML + inner.innerHTML;
+        strip.classList.add('marquee-active');
+        inner.classList.add('marquee-active');
+        activated = true;
+      }
+    }
+    check();
+    window.addEventListener('resize', check, { passive: true });
+  }
+
   /* ── Init ── */
   initTypewriter();
   initProgramiShader();
   initWordCycle();
   initKontaktHover();
   initOrbitalBenefits();
+  initFeaturesMarquee();
 
 })();
