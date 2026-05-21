@@ -679,7 +679,7 @@ input, textarea, select { font-family: var(--sans); }
 }
 
 .hero__tree {
-  height: calc(100vh - 260px);
+  height: calc((100vh - var(--nav-h) - 100px) * 1.35);
   width: auto;
   max-width: none;
   position: relative;
