@@ -246,6 +246,7 @@ input, textarea, select { font-family: var(--sans); }
 .hero-load-4 { animation: hero-slide-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.64s both; }
 .hero-load-5 { animation: hero-slide-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.82s both; }
 .hero-load-photo { animation: hero-fade-in 1s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+.hero-load-2b   { animation: hero-slide-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.38s both; }
 
 /* ── Scroll reveal animations ──────────────── */
 .fade-up {
@@ -536,6 +537,31 @@ input, textarea, select { font-family: var(--sans); }
   animation: gold-shimmer 4s linear infinite;
 }
 
+.hero__tagline {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-top: -8px;
+  margin-bottom: 32px;
+}
+.hero__tagline em {
+  font-style: italic;
+  background: linear-gradient(
+    105deg,
+    var(--gold) 0%,
+    var(--gold-lt) 36%,
+    #ffe899 50%,
+    var(--gold-lt) 64%,
+    var(--gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 4s linear infinite;
+}
+
 .hero__desc {
   font-size: 16px;
   color: var(--muted);
@@ -574,10 +600,10 @@ input, textarea, select { font-family: var(--sans); }
 }
 .trust-card strong {
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: clamp(14px, 1.6vw, 18px);
   font-weight: 500;
   color: var(--gold);
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .trust-card span {
   font-size: 10px;
@@ -585,68 +611,63 @@ input, textarea, select { font-family: var(--sans); }
   line-height: 1.4;
 }
 
-/* Hero right — photo */
+/* Hero right — tree */
 .hero__right {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hero__photo-wrap {
+.hero__tree-wrap {
   position: relative;
-  display: inline-block;
-}
-
-.hero__ring {
-  position: absolute;
-  inset: -28px;
-  border: 1px solid rgba(201,160,54,0.18);
-  border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%;
-  pointer-events: none;
-}
-
-.hero__photo {
-  width: 450px;
-  height: 600px;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%;
-  filter: saturate(0.88) brightness(0.96);
-  display: block;
-}
-
-.hero__badge {
-  position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px 10px 12px;
-  background: rgba(9,24,15,0.88);
-  border: 1px solid rgba(201,160,54,0.28);
-  border-radius: 40px;
-  backdrop-filter: blur(14px);
-  white-space: nowrap;
+  justify-content: center;
 }
-.badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
-  flex-shrink: 0;
-}
-.hero__badge b {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--white);
-  line-height: 1;
-  margin-bottom: 2px;
-}
-.hero__badge span { font-size: 10px; color: var(--muted); line-height: 1; }
-.hero__badge div { display: flex; flex-direction: column; }
 
-.hero__badge--tl { top: 14%; left: -72px; }
-.hero__badge--br { bottom: 18%; right: -72px; }
+.hero__tree-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(240, 210, 120, 0.55) 0%,
+    rgba(200, 170, 70, 0.35) 22%,
+    rgba(100, 150, 70, 0.2) 48%,
+    rgba(20, 80, 40, 0.1) 68%,
+    transparent 82%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__tree {
+  width: 460px;
+  height: 560px;
+  object-fit: contain;
+  object-position: center top;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 32px rgba(201,160,54,0.35)) drop-shadow(0 0 80px rgba(201,160,54,0.15));
+}
+
+.hero__name-signature {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 24px rgba(201,160,54,0.45);
+  opacity: 0.92;
+}
 
 /* Scroll hint */
 .hero__scroll-hint {
@@ -1553,31 +1574,7 @@ input, textarea, select { font-family: var(--sans); }
   z-index: 1;
 }
 
-/* ═══════════════════════════ PHOTO HOVER ══════════════════ */
-.hero__photo-box {
-  position: relative;
-  border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%;
-  overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,160,54,0.12);
-  transition: box-shadow 0.45s ease;
-}
-.hero__photo-box:hover {
-  box-shadow: 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(201,160,54,0.22);
-}
-.hero__photo-box .hero__photo {
-  border-radius: 0;
-  transition: transform 0.55s ease;
-}
-.hero__photo-box:hover .hero__photo { transform: scale(1.05); }
-.hero__photo-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(9,24,15,0.42) 0%, transparent 55%);
-  opacity: 0;
-  transition: opacity 0.45s ease;
-  pointer-events: none;
-}
-.hero__photo-box:hover .hero__photo-overlay { opacity: 1; }
+/* ═══════════════════════════ PHOTO HOVER (About) ══════════ */
 
 .about__photo-box {
   position: relative;
@@ -1840,10 +1837,8 @@ input, textarea, select { font-family: var(--sans); }
     justify-content: center;
     padding-bottom: 32px;
   }
-  .hero__photo      { width: 260px; height: 340px; }
-  .hero__badge--tl,
-  .hero__badge--br  { display: none; }
-  .hero__ring       { display: none; }
+  .hero__tree       { width: 280px; height: 340px; }
+  .hero__tree-glow  { width: 320px; height: 320px; }
   .pristup__inner   { grid-template-columns: 1fr; }
   .pristup__left    { margin-bottom: 40px; }
   .about__inner     { grid-template-columns: 1fr; }
@@ -1907,5 +1902,6 @@ input, textarea, select { font-family: var(--sans); }
   .hero__actions .btn { width: 100%; justify-content: center; }
   .hero__trust    { grid-template-columns: 1fr; }
   .cards           { max-width: 100%; }
-  .hero__photo     { width: 220px; height: 290px; }
+  .hero__tree      { width: 220px; height: 270px; }
+  .hero__tree-glow { width: 250px; height: 250px; }
 }
