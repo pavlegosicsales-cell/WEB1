@@ -2252,7 +2252,9 @@ input, textarea, select { font-family: var(--sans); }
   .pristup__inner   { grid-template-columns: 1fr; }
   .pristup__left    { margin-bottom: 40px; }
   .rezultati__inner { grid-template-columns: 1fr; gap: 60px; }
-  .orb-wrap         { transform: scale(0.85); margin: -36px 0; }
+  .rezultati__orbital { overflow: hidden; }
+  .orbital-container  { overflow: hidden; }
+  .orb-wrap         { transform: scale(0.78); margin: -55px 0; }
   .about__inner     { grid-template-columns: 1fr; }
   .about__photo-col { position: static; }
   .about__photo     { max-width: 480px; }
@@ -2269,6 +2271,9 @@ input, textarea, select { font-family: var(--sans); }
 }
 
 @media (max-width: 768px) {
+  /* Prevent ANY horizontal overflow */
+  html, body { overflow-x: hidden; }
+
   .container      { padding: 0 20px; }
   .nav__inner     { padding: 0 20px; }
   .nav__links     { display: none; }
@@ -2276,18 +2281,36 @@ input, textarea, select { font-family: var(--sans); }
   .nav__cta       { display: none; }
   .hamburger      { display: flex; }
 
-  .hero__inner    { padding: 72px 24px 60px; }
-  .hero__trust    { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  /* ── Hero: hide tree completely on mobile ── */
+  .hero__tree-wrap      { display: none !important; }
+  .hero__name-signature { display: none !important; }
+  .hero__cred-float     { display: none !important; }
+  .hero__inner    { padding: 80px 20px 100px; }
+  .hero__h1       { font-size: clamp(42px, 10vw, 60px); }
+  .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
+  .hero__actions  { flex-wrap: wrap; }
   .creds          { grid-template-columns: 1fr; }
 
-  .pristup        { padding: 88px 0; }
+  /* ── Section spacing ── */
+  .pristup        { padding: 72px 0; }
   .rezultati      { padding: 72px 0; }
-  .programi       { padding: 88px 0; }
-  .about          { padding: 88px 0; }
-  .metode         { padding: 88px 0; }
-  .citat          { padding: 88px 0; }
-  .kontakt        { padding: 88px 0; }
+  .programi       { padding: 72px 0; }
+  .about          { padding: 72px 0; }
+  .metode         { padding: 72px 0; }
+  .citat          { padding: 72px 0; }
+  .kontakt        { padding: 72px 0; }
 
+  /* ── Rezultati: clip orbital overflow, fix blockquote ── */
+  .rezultati__inner     { gap: 40px; }
+  .rezultati__orbital   { width: 100%; overflow: hidden; }
+  .orbital-container    { width: 100%; overflow: hidden; }
+  .orb-wrap             { transform: scale(0.6); margin: -100px 0; }
+  .orb-panel            { max-width: 100%; padding: 0 8px; box-sizing: border-box; }
+  .rezultati__blockquote{ padding: 20px 20px 20px 36px; }
+  .rezultati__blockquote p { font-size: 15px; word-break: break-word; }
+  .rezultati__quote .btn { width: 100%; box-sizing: border-box; justify-content: center; }
+
+  /* ── Other sections ── */
   .metode__grid   { grid-template-columns: 1fr; }
   .form-row       { grid-template-columns: 1fr; }
 
@@ -2311,24 +2334,29 @@ input, textarea, select { font-family: var(--sans); }
 }
 
 @media (max-width: 768px) {
-  .features-strip { padding: 0 16px; }
+  .features-strip { padding: 0; }
   .features-strip__inner {
     overflow-x: auto;
     justify-content: flex-start;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 16px;
   }
   .features-strip__inner::-webkit-scrollbar { display: none; }
-  .features-strip__item { min-width: 100px; padding: 16px 12px; }
-  .features-strip__sep  { margin: 8px 0; }
+  .features-strip__item { min-width: 88px; padding: 14px 10px; flex-shrink: 0; }
+  .features-strip__item span { white-space: nowrap; font-size: 8px; }
+  .features-strip__sep  { margin: 8px 0; flex-shrink: 0; }
+  .features-strip__icon { width: 26px; height: 26px; }
 }
 
 @media (max-width: 480px) {
-  .hero__inner      { padding: 72px 20px 320px; }
+  .hero__inner      { padding: 72px 16px 80px; }
+  .hero__h1         { font-size: clamp(36px, 9vw, 48px); }
   .hero__actions    { flex-direction: column; }
-  .hero__actions .btn { width: 100%; justify-content: center; }
+  .hero__actions .btn { width: 100%; justify-content: center; box-sizing: border-box; }
   .hero__trust      { grid-template-columns: 1fr; }
-  .hero__tree-wrap  { height: 320px; }
-  .hero__tree       { transform: scale(1.05); }
   .cards            { max-width: 100%; }
-  .orb-wrap         { transform: scale(0.72) translateY(-12%); margin-bottom: -110px; }
+  .orb-wrap         { transform: scale(0.5); margin: -125px 0; }
+  .rezultati__blockquote p { font-size: 14px; }
+  .section-label    { font-size: 8px; letter-spacing: 0.14em; }
 }
