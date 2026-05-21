@@ -109,18 +109,23 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="hero__right hero-load-photo">
-        <div class="hero__tree-wrap">
-          <div class="hero__tree-glow"></div>
-          <img
-            src="assets/tree.png"
-            alt="Therapeutica — Drvo života i transformacije"
-            class="hero__tree"
-          />
-          <p class="hero__name-signature">Dr. Dragana Lombardelli</p>
-        </div>
+    <!-- Full-height tree — absolute, covers right half of hero -->
+    <div class="hero__tree-wrap hero-load-photo">
+      <div class="hero__tree-glow"></div>
+      <div class="hero__golden-frame" aria-hidden="true"></div>
+      <img
+        src="assets/tree.png"
+        alt="Therapeutica — Drvo života i transformacije"
+        class="hero__tree"
+      />
+      <div class="hero__creds" aria-hidden="true">
+        <span class="hero__cred">Naturopatija</span>
+        <span class="hero__cred">Psihosomatski terapeut</span>
+        <span class="hero__cred">Autor Therapeutica Metode</span>
       </div>
+      <p class="hero__name-signature">Dr. Dragana Lombardelli</p>
     </div>
 
     <!-- Feature icon strip -->
@@ -255,6 +260,7 @@
 
   <!-- ══════════ REZULTATI ══════════ -->
   <section class="rezultati" id="rezultati">
+    <canvas class="rezultati__canvas" id="rezultatiCanvas" aria-hidden="true"></canvas>
     <div class="container">
       <div class="rezultati__inner">
 
