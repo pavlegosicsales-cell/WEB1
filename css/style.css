@@ -684,7 +684,8 @@ input, textarea, select { font-family: var(--sans); }
   max-width: none;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 40px rgba(201,160,54,0.4)) drop-shadow(0 0 100px rgba(201,160,54,0.18));
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 60px rgba(201,160,54,0.5)) drop-shadow(0 0 120px rgba(201,160,54,0.22));
 }
 
 .hero__name-signature {
