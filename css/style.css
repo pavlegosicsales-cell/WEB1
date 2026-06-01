@@ -2130,6 +2130,19 @@ input, textarea, select { font-family: var(--sans); }
 }
 .char.visible { opacity: 1; }
 
+/* Static quote variant — no typewriter, no min-height reservation */
+.citat__text--static {
+  min-height: 0;
+  opacity: 1;
+}
+.citat__subtitle {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: 10px;
+  text-align: center;
+}
+
 
 /* ═══════════════════════════ KONTAKT HEADING HOVER ═════════ */
 .kontakt__heading-top { transition: color 0.4s ease; }
