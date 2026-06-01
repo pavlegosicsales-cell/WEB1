@@ -1189,6 +1189,25 @@ input, textarea, select { font-family: var(--sans); }
 }
 .card--featured:hover { border-color: rgba(201,160,54,0.55); }
 
+.card--vip {
+  background: linear-gradient(145deg, #0d1f15 0%, #122a1e 60%, #0a1a10 100%);
+  border-color: rgba(201,160,54,0.5);
+  box-shadow: 0 0 40px rgba(201,160,54,0.08), inset 0 1px 0 rgba(201,160,54,0.15);
+}
+.card--vip:hover {
+  border-color: rgba(201,160,54,0.75);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.65),
+              0 0 0 1px rgba(201,160,54,0.35),
+              0 0 60px rgba(201,160,54,0.15);
+}
+.card__installment {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
 .card__featured-tag {
   position: absolute;
   top: -12px;
