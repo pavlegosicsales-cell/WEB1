@@ -2310,11 +2310,20 @@ input, textarea, select { font-family: var(--sans); }
   .nav__cta       { display: none; }
   .hamburger      { display: flex; }
 
-  /* ── Hero: hide tree completely on mobile ── */
-  .hero__tree-wrap      { display: none !important; }
+  /* ── Hero: subtle tree on mobile, creds/signature hidden ── */
   .hero__name-signature { display: none !important; }
   .hero__cred-float     { display: none !important; }
-  .hero__inner    { padding: 80px 20px 140px; }
+  .hero__tree-wrap {
+    top: var(--nav-h);
+    left: auto;
+    right: -15%;
+    bottom: 110px;
+    width: 72%;
+    z-index: 0;
+    opacity: 0.22;
+  }
+  .hero__tree { height: 100%; width: auto; }
+  .hero__inner    { padding: 80px 20px 140px; position: relative; z-index: 2; }
   .hero__h1       { font-size: clamp(42px, 10vw, 60px); }
   .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
   .hero__actions  { flex-wrap: wrap; }
