@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt — Therapeutica | Dragana Lombardelli</title>
+  <meta name="description" content="Razgovarajmo o vašim ciljevima i pronađimo protokol koji je pravi za vas. Zakažite termin sa Draganom Blagojević Lombardelli." />
+  <meta property="og:title" content="Kontakt — Therapeutica" />
+  <meta property="og:description" content="Zakažite termin i počnite svoju transformaciju." />
+  <meta property="og:image" content="assets/tree.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/logo.png" alt="Therapeutica" class="nav__logo" />
+        <div class="nav__brand-text">
+          <span class="nav__name">THERAPEUTICA</span>
+          <span class="nav__sub">HEALTHY &amp; WEALTHY</span>
+        </div>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html">Početna</a></li>
+        <li><a href="index.html#programi">Programi</a></li>
+        <li><a href="o-meni.html">O meni</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <a href="kontakt.html" class="btn btn--gold btn--sm nav__cta">Kontaktiraj me</a>
+      <button class="hamburger" id="hamburger" aria-label="Otvori meni">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <ul>
+        <li><a href="index.html">Početna</a></li>
+        <li><a href="index.html#programi">Programi</a></li>
+        <li><a href="o-meni.html">O meni</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <a href="kontakt.html" class="btn btn--gold">Kontaktiraj me</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="prog-hero">
+    <div class="container">
+      <div class="prog-hero__inner">
+        <span class="section-label">Kontakt</span>
+        <h1 class="section-h2">Počnite svoju <em>transformaciju</em></h1>
+        <p class="prog-body">Razgovarajmo o vašim ciljevima i pronađimo protokol koji je pravi za vas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT FORMA -->
+  <section class="kontakt" id="kontakt" style="padding: 96px 0;">
+    <div class="container">
+      <div class="kontakt__inner">
+
+        <div class="kontakt__left">
+          <span class="section-label">Pišite nam</span>
+          <h2 class="section-h2 kontakt__heading">
+            <span class="kontakt__heading-top">Svaka transformacija</span><br /><em>počinje razgovorom</em>
+          </h2>
+          <p class="kontakt__desc">
+            Opišite šta vas muči i šta biste voleli da promenite. Odgovorićemo vam u najkraćem mogućem roku.
+          </p>
+          <a
+            href="https://instagram.com/therapeutica.lombardelli"
+            class="kontakt__ig"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            <span>@therapeutica.lombardelli</span>
+            <span class="ig-arrow">→</span>
+          </a>
+        </div>
+
+        <form class="kontakt__form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Ime i prezime</label>
+              <input type="text" id="name" name="name" placeholder="Vaše ime" required />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail adresa</label>
+              <input type="email" id="email" name="email" placeholder="vas@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="program">Program koji vas zanima</label>
+            <select id="program" name="program">
+              <option value="">Izaberite program (opciono)</option>
+              <option value="nesanica">Nesanica &amp; Bahove kapi — 100€</option>
+              <option value="apneja">Apneja u snu — 100€</option>
+              <option value="emocionalni">Emocionalni reset uz Bahove kapi — 100€</option>
+              <option value="detox">Holistički Detox 21 dan — 300€</option>
+              <option value="hormoni">Hormonalni Reset 3 meseca — 600€</option>
+              <option value="premium">Premium 1:1 — 5R Reset Metoda™ — 1.200€</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Poruka</label>
+            <textarea id="message" name="message" rows="5" placeholder="Opišite šta vas muči ili šta biste voleli da promenite..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--gold btn--full" id="submitBtn">Pošalji poruku</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__blob footer__blob--1" aria-hidden="true"></div>
+    <div class="footer__blob footer__blob--2" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer__glass fade-up">
+        <div class="footer__brand-col">
+          <a href="index.html" class="footer__brand-link">
+            <img src="assets/logo.png" alt="Therapeutica" class="footer__logo" />
+            <div>
+              <p class="footer__brand-name">THERAPEUTICA</p>
+              <p class="footer__brand-tag">HEALTHY &amp; WEALTHY</p>
+            </div>
+          </a>
+          <p class="footer__desc">Naturopatski programi koji otkrivaju uzrok, ne samo simptom. Svaki protokol je individualno prilagođen vašem telu, umu i duhu.</p>
+          <div class="footer__socials">
+            <a href="https://instagram.com/therapeutica.lombardelli" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <nav class="footer__nav">
+          <div class="footer__col">
+            <h5>Navigacija</h5>
+            <ul>
+              <li><a href="index.html">Početna</a></li>
+              <li><a href="index.html#programi">Programi</a></li>
+              <li><a href="o-meni.html">O meni</a></li>
+              <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Programi</h5>
+            <ul>
+              <li><a href="programi/nesanica-bahove-kapi.html">Nesanica &amp; Bahove kapi</a></li>
+              <li><a href="programi/apneja-u-snu.html">Apneja u snu</a></li>
+              <li><a href="programi/emocionalni-reset.html">Emocionalni reset</a></li>
+              <li><a href="programi/holisticki-detox-21-dan.html">Holistički Detox 21 dan</a></li>
+              <li><a href="programi/hormonalni-reset.html">Hormonalni Reset</a></li>
+              <li><a href="programi/premium-1na1-5r-reset.html">Premium 1:1 — 5R Reset</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Kontakt</h5>
+            <ul>
+              <li><a href="mailto:dragana@therapeutica.rs">dragana@therapeutica.rs</a></li>
+              <li><a href="https://instagram.com/therapeutica.lombardelli" target="_blank" rel="noopener">@therapeutica.lombardelli</a></li>
+              <li><a href="kontakt.html">Kontaktiraj me</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Therapeutica by Dragana Lombardelli. Sva prava zadržana.</p>
+        <p class="footer__note">Naturopatski programi su edukativnog i suportivnog karaktera i ne zamenjuju medicinsku dijagnostiku.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
