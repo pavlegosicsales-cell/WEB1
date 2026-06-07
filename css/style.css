@@ -2467,7 +2467,20 @@ input, textarea, select { font-family: var(--sans); }
   z-index: 0;
 }
 .prog-hero > .container,
-.prog-hero > .prog-hero__inner { position: relative; z-index: 1; }
+.prog-hero > .prog-hero__inner { position: relative; z-index: 2; }
+.prog-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(5,15,9,0.72) 0%,
+    rgba(5,15,9,0.45) 55%,
+    rgba(5,15,9,0.10) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
 .prog-hero::before {
   content: '';
   position: absolute;
