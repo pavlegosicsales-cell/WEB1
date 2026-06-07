@@ -26,11 +26,14 @@
       </a>
       <ul class="nav__links">
         <li><a href="index.html">Početna</a></li>
-        <li><a href="index.html#programi">Programi</a></li>
         <li><a href="o-meni.html">O meni</a></li>
+        <li><a href="index.html#programi">Programi</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
-      <a href="kontakt.html" class="btn btn--gold btn--sm nav__cta">Kontaktiraj me</a>
+      <a href="kontakt.html" class="btn--shiny nav__cta">
+        <span>Kontaktiraj me</span>
+        <svg class="btn-arr" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
+      </a>
       <button class="hamburger" id="hamburger" aria-label="Otvori meni">
         <span></span><span></span><span></span>
       </button>
@@ -38,11 +41,14 @@
     <div class="nav__mobile" id="mobileMenu">
       <ul>
         <li><a href="index.html">Početna</a></li>
-        <li><a href="index.html#programi">Programi</a></li>
         <li><a href="o-meni.html">O meni</a></li>
+        <li><a href="index.html#programi">Programi</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
-      <a href="kontakt.html" class="btn btn--gold">Kontaktiraj me</a>
+      <a href="kontakt.html" class="btn--shiny" style="justify-content:center;width:100%;box-sizing:border-box;">
+        <span>Kontaktiraj me</span>
+        <svg class="btn-arr" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
+      </a>
     </div>
   </nav>
 
@@ -59,59 +65,75 @@
 
   <!-- KONTAKT FORMA -->
   <section class="kontakt" id="kontakt" style="padding: 96px 0;">
+    <div class="kbg-glow kbg-glow--1" aria-hidden="true"></div>
+    <div class="kbg-glow kbg-glow--2" aria-hidden="true"></div>
     <div class="container">
-      <div class="kontakt__inner">
-
-        <div class="kontakt__left">
-          <span class="section-label">Pišite nam</span>
-          <h2 class="section-h2 kontakt__heading">
-            <span class="kontakt__heading-top">Svaka transformacija</span><br /><em>počinje razgovorom</em>
-          </h2>
-          <p class="kontakt__desc">
-            Opišite šta vas muči i šta biste voleli da promenite. Odgovorićemo vam u najkraćem mogućem roku.
-          </p>
-          <a
-            href="https://instagram.com/therapeutica.lombardelli"
-            class="kontakt__ig"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-            <span>@therapeutica.lombardelli</span>
-            <span class="ig-arrow">→</span>
-          </a>
+      <div class="kcard" id="kontaktCard">
+        <div class="kcard__beams" aria-hidden="true">
+          <span class="kcard__beam kcard__beam--t"></span>
+          <span class="kcard__beam kcard__beam--r"></span>
+          <span class="kcard__beam kcard__beam--b"></span>
+          <span class="kcard__beam kcard__beam--l"></span>
+          <span class="kcard__corner kcard__corner--tl"></span>
+          <span class="kcard__corner kcard__corner--tr"></span>
+          <span class="kcard__corner kcard__corner--br"></span>
+          <span class="kcard__corner kcard__corner--bl"></span>
         </div>
+        <div class="kcard__face">
+          <div class="kontakt__inner">
 
-        <form class="kontakt__form" id="contactForm" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Ime i prezime</label>
-              <input type="text" id="name" name="name" placeholder="Vaše ime" required />
+            <div class="kontakt__left">
+              <span class="section-label">Pišite nam</span>
+              <h2 class="section-h2 kontakt__heading">
+                <span class="kontakt__heading-top">Svaka transformacija</span><br /><em>počinje razgovorom</em>
+              </h2>
+              <p class="kontakt__desc">
+                Opišite šta vas muči i šta biste voleli da promenite. Odgovorićemo vam u najkraćem mogućem roku.
+              </p>
+              <a
+                href="https://instagram.com/therapeutica.lombardelli"
+                class="kontakt__ig"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+                <span>@therapeutica.lombardelli</span>
+                <span class="ig-arrow">→</span>
+              </a>
             </div>
-            <div class="form-group">
-              <label for="email">E-mail adresa</label>
-              <input type="email" id="email" name="email" placeholder="vas@email.com" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="program">Program koji vas zanima</label>
-            <select id="program" name="program">
-              <option value="">Izaberite program (opciono)</option>
-              <option value="nesanica">Nesanica &amp; Bahove kapi — 100€</option>
-              <option value="apneja">Apneja u snu — 100€</option>
-              <option value="emocionalni">Emocionalni reset uz Bahove kapi — 100€</option>
-              <option value="detox">Holistički Detox 21 dan — 300€</option>
-              <option value="hormoni">Hormonalni Reset 3 meseca — 600€</option>
-              <option value="premium">Premium 1:1 — 5R Reset Metoda™ — 1.200€</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Poruka</label>
-            <textarea id="message" name="message" rows="5" placeholder="Opišite šta vas muči ili šta biste voleli da promenite..."></textarea>
-          </div>
-          <button type="submit" class="btn btn--gold btn--full" id="submitBtn">Pošalji poruku</button>
-        </form>
 
+            <form class="kontakt__form" id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Ime i prezime</label>
+                  <input type="text" id="name" name="name" placeholder="Vaše ime" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail adresa</label>
+                  <input type="email" id="email" name="email" placeholder="vas@email.com" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="program">Program koji vas zanima</label>
+                <select id="program" name="program">
+                  <option value="">Izaberite program (opciono)</option>
+                  <option value="nesanica">Nesanica &amp; Bahove kapi — 100€</option>
+                  <option value="apneja">Apneja u snu — 100€</option>
+                  <option value="emocionalni">Emocionalni reset uz Bahove kapi — 100€</option>
+                  <option value="detox">Holistički Detox 21 dan — 300€</option>
+                  <option value="hormoni">Hormonalni Reset 3 meseca — 600€</option>
+                  <option value="premium">Premium 1:1 — 5R Reset Metoda™ — 1.200€</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Poruka</label>
+                <textarea id="message" name="message" rows="5" placeholder="Opišite šta vas muči ili šta biste voleli da promenite..."></textarea>
+              </div>
+              <button type="submit" class="btn btn--gold btn--full" id="submitBtn">Pošalji poruku</button>
+            </form>
+
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -144,8 +166,8 @@
             <h5>Navigacija</h5>
             <ul>
               <li><a href="index.html">Početna</a></li>
-              <li><a href="index.html#programi">Programi</a></li>
               <li><a href="o-meni.html">O meni</a></li>
+              <li><a href="index.html#programi">Programi</a></li>
               <li><a href="kontakt.html">Kontakt</a></li>
             </ul>
           </div>

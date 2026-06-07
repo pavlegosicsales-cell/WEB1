@@ -2766,3 +2766,293 @@ input, textarea, select { font-family: var(--sans); }
   .prog-hero__actions { flex-direction: column; }
   .prog-hero__actions .btn { width: 100%; justify-content: center; box-sizing: border-box; }
 }
+
+/* ═══════════════════════════ KONTAKT GLASS CARD ═══════════════════ */
+
+.kontakt { position: relative; overflow: hidden; }
+
+/* Animated background glow blobs behind the card */
+.kbg-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.kbg-glow--1 {
+  top: -25%; left: 50%;
+  transform: translateX(-50%);
+  width: 130%; height: 75%;
+  background: radial-gradient(ellipse, rgba(26,56,38,0.52) 0%, transparent 65%);
+  filter: blur(72px);
+  animation: kglow1 9s ease-in-out infinite alternate;
+}
+.kbg-glow--2 {
+  bottom: -30%; left: 50%;
+  transform: translateX(-50%);
+  width: 90%; height: 65%;
+  background: radial-gradient(ellipse, rgba(13,40,24,0.42) 0%, transparent 65%);
+  filter: blur(64px);
+  animation: kglow2 7s ease-in-out infinite alternate;
+}
+@keyframes kglow1 {
+  0%   { opacity: 0.65; transform: translateX(-50%) scale(0.93); }
+  100% { opacity: 1;    transform: translateX(-50%) scale(1.08); }
+}
+@keyframes kglow2 {
+  0%   { opacity: 0.5;  transform: translateX(-50%) scale(1.05); }
+  100% { opacity: 0.88; transform: translateX(-50%) scale(0.92); }
+}
+
+/* 3D tilt wrapper */
+.kcard {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Beam & corner overlay — clips beams to card boundary */
+.kcard__beams {
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Travelling light beams */
+.kcard__beam { position: absolute; filter: blur(1.5px); opacity: 0; }
+.kcard__beam--t {
+  top: 0; left: 0; height: 2px; width: 50%;
+  background: linear-gradient(to right, transparent, rgba(201,160,54,0.9), transparent);
+  animation: kBeamT 3.5s ease-in-out infinite;
+}
+.kcard__beam--r {
+  top: 0; right: 0; width: 2px; height: 50%;
+  background: linear-gradient(to bottom, transparent, rgba(201,160,54,0.9), transparent);
+  animation: kBeamR 3.5s ease-in-out infinite 0.875s;
+}
+.kcard__beam--b {
+  bottom: 0; right: 0; height: 2px; width: 50%;
+  background: linear-gradient(to left, transparent, rgba(201,160,54,0.9), transparent);
+  animation: kBeamB 3.5s ease-in-out infinite 1.75s;
+}
+.kcard__beam--l {
+  bottom: 0; left: 0; width: 2px; height: 50%;
+  background: linear-gradient(to top, transparent, rgba(201,160,54,0.9), transparent);
+  animation: kBeamL 3.5s ease-in-out infinite 2.625s;
+}
+@keyframes kBeamT {
+  0%   { left: -50%;  opacity: 0; }
+  8%   { opacity: 0.9; }
+  92%  { opacity: 0.55; }
+  100% { left: 100%;  opacity: 0; }
+}
+@keyframes kBeamR {
+  0%   { top: -50%;  opacity: 0; }
+  8%   { opacity: 0.9; }
+  92%  { opacity: 0.55; }
+  100% { top: 100%;  opacity: 0; }
+}
+@keyframes kBeamB {
+  0%   { right: -50%; opacity: 0; }
+  8%   { opacity: 0.9; }
+  92%  { opacity: 0.55; }
+  100% { right: 100%; opacity: 0; }
+}
+@keyframes kBeamL {
+  0%   { bottom: -50%; opacity: 0; }
+  8%   { opacity: 0.9; }
+  92%  { opacity: 0.55; }
+  100% { bottom: 100%; opacity: 0; }
+}
+
+/* Corner glow dots */
+.kcard__corner {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(201,160,54,0.6);
+  filter: blur(1px);
+}
+.kcard__corner--tl { top:0;    left:0;  animation: kCorner 2.2s ease-in-out infinite; }
+.kcard__corner--tr { top:0;    right:0; animation: kCorner 2.2s ease-in-out infinite 0.55s; }
+.kcard__corner--br { bottom:0; right:0; animation: kCorner 2.2s ease-in-out infinite 1.1s; }
+.kcard__corner--bl { bottom:0; left:0;  animation: kCorner 2.2s ease-in-out infinite 1.65s; }
+@keyframes kCorner {
+  0%,100% { opacity: 0.2; }
+  50%     { opacity: 0.7; }
+}
+
+/* Glass face — the visible card surface */
+.kcard__face {
+  position: relative;
+  background: rgba(6, 17, 11, 0.86);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 16px;
+  border: 1px solid rgba(201,160,54,0.13);
+  padding: 56px 64px;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow:
+    0 24px 72px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: border-color 0.4s ease;
+}
+/* Subtle grid texture */
+.kcard__face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background-image:
+    linear-gradient(rgba(201,160,54,0.016) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,160,54,0.016) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.kcard:hover .kcard__face { border-color: rgba(201,160,54,0.26); }
+.kcard .kontakt__inner { position: relative; z-index: 1; }
+
+/* Kontakt page — hero section glass card */
+.kontakt-page .kontakt { padding: 0 0 96px; }
+
+/* ═══════════════════════════ SIDERING WEBGL CANVAS ════════════════ */
+.sr-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Elevate content above canvas */
+.kontakt > .container,
+.testimonials__header,
+.testimonials__viewport { position: relative; z-index: 1; }
+.kontakt > .kbg-glow { z-index: 0; }
+
+/* ═══════════════════════════ TESTIMONIALS — DARK MODE ═════════════ */
+.testimonials {
+  background: #000 !important;
+  position: relative;
+}
+.testimonials .section-h2   { color: var(--warm) !important; }
+.testimonials .section-desc { color: var(--muted) !important; }
+
+.tcard {
+  background: rgba(13,32,24,0.72) !important;
+  border-color: rgba(201,160,54,0.13) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+}
+.tcard:hover {
+  background: rgba(20,44,28,0.88) !important;
+  border-color: rgba(201,160,54,0.28) !important;
+}
+.tcard > p           { color: rgba(244,239,230,0.78) !important; }
+.tcard__author b     { color: var(--warm) !important; }
+.tcard__author span  { color: var(--muted) !important; }
+
+@media (max-width: 960px) {
+  .kcard__face { padding: 40px 36px; }
+}
+@media (max-width: 600px) {
+  .kcard__face { padding: 28px 20px; border-radius: 12px; }
+}
+
+/* ═══════════════════════════ SHINY NAV BUTTON ══════════════════════ */
+
+@property --sg-angle   { syntax: "<angle>";      initial-value: 0deg; inherits: false; }
+@property --sg-offset  { syntax: "<angle>";      initial-value: 0deg; inherits: false; }
+@property --sg-pct     { syntax: "<percentage>"; initial-value: 5%;   inherits: false; }
+@property --sg-shine   { syntax: "<color>";      initial-value: #c9a04c; inherits: false; }
+
+.btn--shiny {
+  --shiny-bg:  #080f0b;
+  --shiny-sub: #1a3826;
+  --shiny-fg:  #f5f0e8;
+  --shiny-hl:  #c9a04c;
+  --shiny-hls: #e8c96d;
+  --dur: 3s;
+  --ease: 700ms cubic-bezier(0.25, 1, 0.5, 1);
+
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0px;
+  padding: 8px 18px;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: 360px;
+  color: var(--shiny-fg);
+  text-decoration: none;
+  cursor: pointer;
+  background:
+    linear-gradient(var(--shiny-bg), var(--shiny-bg)) padding-box,
+    conic-gradient(
+      from calc(var(--sg-angle) - var(--sg-offset)),
+      transparent,
+      var(--shiny-hl)  var(--sg-pct),
+      var(--sg-shine)  calc(var(--sg-pct) * 2),
+      var(--shiny-hl)  calc(var(--sg-pct) * 3),
+      transparent      calc(var(--sg-pct) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-sub);
+  transition:
+    --sg-offset var(--ease),
+    --sg-pct    var(--ease),
+    --sg-shine  var(--ease),
+    gap 0.25s ease;
+  animation:
+    shinyAngle var(--dur) linear infinite paused,
+    shinyAngle calc(var(--dur) / 0.4) linear infinite reverse paused;
+  animation-composition: add;
+}
+.btn--shiny::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(-50deg, transparent, var(--shiny-hl), transparent);
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.45;
+  animation: shinyShimmer var(--dur) linear infinite paused;
+}
+.btn--shiny .btn-arr {
+  width: 0;
+  opacity: 0;
+  overflow: visible;
+  flex-shrink: 0;
+  transition: width 0.28s ease, opacity 0.28s ease, margin-left 0.28s ease;
+  margin-left: 0;
+}
+.btn--shiny:hover,
+.btn--shiny:focus-visible {
+  --sg-pct: 20%;
+  --sg-offset: 95deg;
+  --sg-shine: var(--shiny-hls);
+  gap: 6px;
+}
+.btn--shiny:hover,
+.btn--shiny:hover::after,
+.btn--shiny:focus-visible,
+.btn--shiny:focus-visible::after {
+  animation-play-state: running;
+}
+.btn--shiny:hover .btn-arr,
+.btn--shiny:focus-visible .btn-arr { width: 12px; opacity: 1; }
+.btn--shiny:active { translate: 0 1px; }
+
+@keyframes shinyAngle   { to { --sg-angle: 360deg; } }
+@keyframes shinyShimmer { to { rotate: 360deg; } }

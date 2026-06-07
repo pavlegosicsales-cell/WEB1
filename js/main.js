@@ -359,6 +359,160 @@
     kontaktForm.addEventListener('mouseleave', () => heading.classList.remove('form-hover'));
   }
 
+  /* ── Kontakt card 3D tilt ── */
+  function initKontaktTilt() {
+    const card = document.getElementById('kontaktCard');
+    if (!card) return;
+    let raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      tx = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 6;
+      ty = -((e.clientY - r.top - r.height / 2) / (r.height / 2)) * 6;
+      if (!raf) raf = requestAnimationFrame(tiltLoop);
+    });
+    card.addEventListener('mouseleave', () => {
+      tx = 0; ty = 0;
+      if (!raf) raf = requestAnimationFrame(tiltLoop);
+    });
+    function tiltLoop() {
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      card.style.transform = `perspective(1400px) rotateX(${cy}deg) rotateY(${cx}deg)`;
+      if (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01) {
+        raf = requestAnimationFrame(tiltLoop);
+      } else {
+        raf = null;
+      }
+    }
+  }
+
+  /* ── SideRays WebGL background ── */
+  function initSideRays(container, opts) {
+    if (!container) return;
+    var o = Object.assign({
+      speed: 2.0, rayColor1: '#c9a04c', rayColor2: '#1a5c38',
+      intensity: 1.6, spread: 2.0, origin: 'top-right',
+      tilt: 0, saturation: 1.4, blend: 0.7, falloff: 1.8, opacity: 0.85
+    }, opts);
+
+    var canvas = document.createElement('canvas');
+    canvas.className = 'sr-canvas';
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+    container.insertBefore(canvas, container.firstChild);
+
+    var gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
+    if (!gl) return;
+
+    function hexRgb(h) {
+      var m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
+      return m ? [parseInt(m[1],16)/255, parseInt(m[2],16)/255, parseInt(m[3],16)/255] : [1,1,1];
+    }
+    function originFlip(origin) {
+      if (origin === 'top-left')    return [1, 0];
+      if (origin === 'bottom-right') return [0, 1];
+      if (origin === 'bottom-left') return [1, 1];
+      return [0, 0];
+    }
+
+    var vert = 'attribute vec2 position;\nvoid main(){gl_Position=vec4(position,0.0,1.0);}';
+    var frag = [
+      'precision highp float;',
+      'uniform float iTime,iSpeed,iIntensity,iSpread,iFlipX,iFlipY,iTilt,iSaturation,iBlend,iFalloff,iOpacity;',
+      'uniform vec2 iResolution;',
+      'uniform vec3 iRayColor1,iRayColor2;',
+      'float rs(vec2 src,vec2 dir,vec2 c,float a,float b,float sp){',
+      '  vec2 d=c-src;float ca=dot(normalize(d),dir);',
+      '  return clamp((0.45+0.15*sin(ca*a+iTime*sp))+(0.3+0.2*cos(-ca*b+iTime*sp)),0.0,1.0)',
+      '   *clamp((iResolution.x-length(d))/iResolution.x,0.5,1.0);}',
+      'void main(){',
+      '  vec2 fc=gl_FragCoord.xy;',
+      '  if(iFlipX>0.5)fc.x=iResolution.x-fc.x;',
+      '  if(iFlipY>0.5)fc.y=iResolution.y-fc.y;',
+      '  vec2 coord=vec2(fc.x,iResolution.y-fc.y);',
+      '  vec2 rp=vec2(iResolution.x*1.1,-0.5*iResolution.y);',
+      '  float tr=iTilt*3.14159/180.0,cs=cos(tr),sn=sin(tr);',
+      '  vec2 rel=coord-rp;',
+      '  vec2 tc=vec2(rel.x*cs-rel.y*sn,rel.x*sn+rel.y*cs)+rp;',
+      '  float hs=iSpread*0.275;',
+      '  vec2 d1=normalize(vec2(cos(0.785398+hs),sin(0.785398+hs)));',
+      '  vec2 d2=normalize(vec2(cos(0.785398-hs),sin(0.785398-hs)));',
+      '  vec4 r1=vec4(iRayColor1,1.0)*rs(rp,d1,tc,36.2214,21.11349,iSpeed);',
+      '  vec4 r2=vec4(iRayColor2,1.0)*rs(rp,d2,tc,22.3991,18.0234,iSpeed*0.2);',
+      '  vec4 col=r1*(1.0-iBlend)*0.9+r2*iBlend*0.9;',
+      '  float dist=length(fc.xy-vec2(rp.x,iResolution.y-rp.y))/iResolution.y;',
+      '  float bri=iIntensity*0.4/pow(max(dist,0.001),iFalloff);',
+      '  col.rgb*=bri;',
+      '  float g=dot(col.rgb,vec3(0.299,0.587,0.114));',
+      '  col.rgb=mix(vec3(g),col.rgb,iSaturation);',
+      '  col.a=max(col.r,max(col.g,col.b))*iOpacity;',
+      '  gl_FragColor=col;}'
+    ].join('\n');
+
+    function mkShader(t, src) {
+      var s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); return s;
+    }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, vert));
+    gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, frag));
+    gl.linkProgram(prog); gl.useProgram(prog);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+    var pl = gl.getAttribLocation(prog, 'position');
+    gl.enableVertexAttribArray(pl);
+    gl.vertexAttribPointer(pl, 2, gl.FLOAT, false, 0, 0);
+
+    var U = {};
+    ['iTime','iResolution','iSpeed','iRayColor1','iRayColor2','iIntensity','iSpread',
+     'iFlipX','iFlipY','iTilt','iSaturation','iBlend','iFalloff','iOpacity'].forEach(function(n) {
+      U[n] = gl.getUniformLocation(prog, n);
+    });
+
+    var c1 = hexRgb(o.rayColor1), c2 = hexRgb(o.rayColor2), fl = originFlip(o.origin);
+    gl.uniform1f(U.iSpeed, o.speed);
+    gl.uniform3f(U.iRayColor1, c1[0], c1[1], c1[2]);
+    gl.uniform3f(U.iRayColor2, c2[0], c2[1], c2[2]);
+    gl.uniform1f(U.iIntensity, o.intensity);
+    gl.uniform1f(U.iSpread, o.spread);
+    gl.uniform1f(U.iFlipX, fl[0]);
+    gl.uniform1f(U.iFlipY, fl[1]);
+    gl.uniform1f(U.iTilt, o.tilt);
+    gl.uniform1f(U.iSaturation, o.saturation);
+    gl.uniform1f(U.iBlend, o.blend);
+    gl.uniform1f(U.iFalloff, o.falloff);
+    gl.uniform1f(U.iOpacity, o.opacity);
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = container.clientWidth, h = container.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(U.iResolution, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.clearColor(0, 0, 0, 0);
+
+    var animId = null;
+    function loop(t) {
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform1f(U.iTime, t * 0.001);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      animId = requestAnimationFrame(loop);
+    }
+
+    var obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) { if (!animId) animId = requestAnimationFrame(loop); }
+      else { if (animId) { cancelAnimationFrame(animId); animId = null; } }
+    }, { threshold: 0.05 });
+    obs.observe(container);
+  }
+
   /* ── Orbital benefits animation ── */
   function initOrbitalBenefits() {
     const wrap = document.getElementById('orbWrap');
@@ -473,7 +627,10 @@
   initProgramiShader();
   initWordCycle();
   initKontaktHover();
+  initKontaktTilt();
   initOrbitalBenefits();
   initFeaturesMarquee();
+  initSideRays(document.querySelector('.testimonials'), { origin: 'top-right', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 1.8 });
+  initSideRays(document.querySelector('.kontakt'), { origin: 'top-left', rayColor1: '#c9a04c', rayColor2: '#0d3020', intensity: 1.5, blend: 0.65 });
 
 })();
