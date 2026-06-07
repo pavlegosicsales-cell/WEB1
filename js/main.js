@@ -24,7 +24,8 @@
       '<span class="nav-lamp__bar"></span>' +
       '<span class="nav-lamp__g1"></span>' +
       '<span class="nav-lamp__g2"></span>' +
-      '<span class="nav-lamp__g3"></span>';
+      '<span class="nav-lamp__g3"></span>' +
+      '<span class="nav-lamp__cone"></span>';
     ul.appendChild(lamp);
 
     // Determine active link from current page
