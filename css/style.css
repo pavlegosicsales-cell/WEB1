@@ -2682,6 +2682,33 @@ input, textarea, select { font-family: var(--sans); }
 }
 .prog-body:last-child { margin-bottom: 0; }
 
+/* Text + image split layout */
+.prog-split {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 64px;
+  align-items: center;
+}
+.prog-split__text { display: flex; flex-direction: column; }
+.prog-split__img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prog-split__picture {
+  width: 100%;
+  max-width: 400px;
+  filter: drop-shadow(0 24px 60px rgba(0,0,0,0.45));
+}
+@media (max-width: 860px) {
+  .prog-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .prog-split__img { order: -1; }
+  .prog-split__picture { max-width: 280px; }
+}
+
 /* Protocol steps */
 .prog-steps { margin-top: 48px; }
 .prog-step {
