@@ -3204,18 +3204,15 @@ input, textarea, select { font-family: var(--sans); }
   inset: 0;
   border-radius: 16px;
   background-image:
-    linear-gradient(rgba(201,160,54,0.016) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,160,54,0.016) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.kcard:hover .kcard__face { border-color: rgba(201,160,54,0.26); }
-.kcard:hover .kcard__face::before {
-  background-image:
     linear-gradient(rgba(201,160,54,0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(201,160,54,0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.23;
+  transition: opacity 0.7s ease;
 }
+.kcard:hover .kcard__face { border-color: rgba(201,160,54,0.26); }
+.kcard:hover .kcard__face::before { opacity: 1; }
 .kcard .kontakt__inner { position: relative; z-index: 1; }
 
 /* Kontakt page — hero section glass card */
