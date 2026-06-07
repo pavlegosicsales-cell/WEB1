@@ -11,6 +11,62 @@
     onScroll();
   }
 
+  /* ── Tubelight nav ── */
+  function initTubelightNav() {
+    var ul = document.querySelector('.nav__links');
+    if (!ul) return;
+    var links = Array.from(ul.querySelectorAll('a'));
+
+    // Inject lamp
+    var lamp = document.createElement('span');
+    lamp.className = 'nav-lamp';
+    lamp.innerHTML =
+      '<span class="nav-lamp__bar"></span>' +
+      '<span class="nav-lamp__g1"></span>' +
+      '<span class="nav-lamp__g2"></span>' +
+      '<span class="nav-lamp__g3"></span>';
+    ul.appendChild(lamp);
+
+    // Determine active link from current page
+    var page = location.pathname.split('/').pop() || 'index.html';
+    var activeLink = null;
+    links.forEach(function(a) {
+      var href = (a.getAttribute('href') || '').split('#')[0].split('/').pop() || 'index.html';
+      if (href === page || (page === '' && href === 'index.html') || (page === 'index.html' && href === '')) {
+        a.classList.add('nav-active');
+        activeLink = a;
+      }
+    });
+    if (!activeLink) { links[0].classList.add('nav-active'); activeLink = links[0]; }
+
+    function moveLamp(el) {
+      var ulRect = ul.getBoundingClientRect();
+      var elRect = el.getBoundingClientRect();
+      lamp.style.left = (elRect.left - ulRect.left + elRect.width / 2) + 'px';
+    }
+
+    links.forEach(function(a) {
+      a.addEventListener('mouseenter', function() { moveLamp(a); });
+      a.addEventListener('mouseleave', function() { moveLamp(activeLink); });
+      a.addEventListener('click', function() {
+        links.forEach(function(l) { l.classList.remove('nav-active'); });
+        a.classList.add('nav-active');
+        activeLink = a;
+      });
+    });
+
+    // Reposition after scroll state change (layout shifts with pill padding)
+    window.addEventListener('scroll', function() {
+      requestAnimationFrame(function() { moveLamp(activeLink); });
+    }, { passive: true });
+    window.addEventListener('resize', function() { moveLamp(activeLink); });
+
+    // Initial position (also after 100ms to catch CSS transition settle)
+    moveLamp(activeLink);
+    setTimeout(function() { moveLamp(activeLink); }, 120);
+  }
+  initTubelightNav();
+
   /* ── Hamburger / mobile menu ── */
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
