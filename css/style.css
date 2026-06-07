@@ -2673,6 +2673,44 @@ input, textarea, select { font-family: var(--sans); }
 .prog-section--light .prog-body { color: rgba(13,32,24,0.72); }
 .prog-section--light .prog-whom__list li { color: rgba(13,32,24,0.72); border-bottom-color: rgba(13,32,24,0.06); }
 
+/* Radial glow section — dark bg + green glow from top */
+.prog-section--radial-glow {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(201,160,54,0.06);
+  border-bottom: 1px solid rgba(201,160,54,0.06);
+}
+.prog-section--radial-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle 600px at 50% -40px, rgba(26,92,56,0.42), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+.prog-section--radial-glow::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 340px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,160,54,0.30), transparent);
+  pointer-events: none;
+}
+.prog-section--radial-glow .container { position: relative; z-index: 1; }
+.prog-section--radial-glow .whom-card {
+  background: rgba(13,26,18,0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(201,160,54,0.13);
+}
+.prog-section--radial-glow .whom-note {
+  background: rgba(26,56,38,0.15);
+  border-color: rgba(201,160,54,0.10);
+}
+.prog-section--radial-glow .whom-note p { color: var(--muted); }
+.prog-section--radial-glow .whom-note strong { color: var(--warm); }
+
 .prog-body {
   font-size: 16px;
   color: var(--muted);
@@ -2685,8 +2723,8 @@ input, textarea, select { font-family: var(--sans); }
 /* Text + image split layout */
 .prog-split {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 48px;
+  grid-template-columns: minmax(0, 560px) 360px;
+  gap: 64px;
   align-items: center;
 }
 .prog-split__text { display: flex; flex-direction: column; }
@@ -2697,7 +2735,7 @@ input, textarea, select { font-family: var(--sans); }
 }
 .prog-split__picture {
   width: 100%;
-  max-width: 260px;
+  max-width: 340px;
   filter: drop-shadow(0 24px 60px rgba(0,0,0,0.45));
 }
 @media (max-width: 860px) {
@@ -2706,7 +2744,7 @@ input, textarea, select { font-family: var(--sans); }
     gap: 40px;
   }
   .prog-split__img { order: -1; }
-  .prog-split__picture { max-width: 280px; }
+  .prog-split__picture { max-width: 260px; }
 }
 
 /* Protocol steps */
