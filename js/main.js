@@ -714,6 +714,6 @@
   initFeaturesMarquee();
   initProgHeroGL();
   initSideRays(document.querySelector('.testimonials'), { origin: 'top-right', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 1.8 });
-  initSideRays(document.querySelector('.kontakt'), { origin: 'top-left', rayColor1: '#c9a04c', rayColor2: '#0d3020', intensity: 1.5, blend: 0.65 });
+  initSideRays(document.querySelector('.kontakt'), { origin: 'top-left', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 3.2, blend: 0.55, falloff: 1.4, opacity: 1.0 });
 
 })();
