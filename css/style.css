@@ -2987,6 +2987,18 @@ input, textarea, select { font-family: var(--sans); }
     0 0 70px rgba(201,160,76,0.07),
     0 32px 80px rgba(0,0,0,0.45),
     inset 0 1px 0 rgba(201,160,76,0.12);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+}
+.prog-includes:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 120px rgba(201,160,76,0.16),
+    0 48px 100px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(201,160,76,0.22);
+}
+.prog-includes:hover .prog-includes__glow {
+  opacity: 1;
+  filter: blur(22px);
 }
 @keyframes incBorderSpin { to { --inc-angle: 360deg; } }
 
