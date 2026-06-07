@@ -2685,8 +2685,8 @@ input, textarea, select { font-family: var(--sans); }
 /* Text + image split layout */
 .prog-split {
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 64px;
+  grid-template-columns: 1fr 280px;
+  gap: 48px;
   align-items: center;
 }
 .prog-split__text { display: flex; flex-direction: column; }
@@ -2697,7 +2697,7 @@ input, textarea, select { font-family: var(--sans); }
 }
 .prog-split__picture {
   width: 100%;
-  max-width: 400px;
+  max-width: 260px;
   filter: drop-shadow(0 24px 60px rgba(0,0,0,0.45));
 }
 @media (max-width: 860px) {
