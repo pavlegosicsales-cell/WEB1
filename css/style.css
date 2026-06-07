@@ -1826,7 +1826,17 @@ input, textarea, select { font-family: var(--sans); }
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus { border-color: rgba(201,160,54,0.45); }
-.form-group select { cursor: pointer; }
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a036' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+.form-group select option {
+  background: #0d2018;
+  color: #f4efe6;
+}
 .form-group input.error,
 .form-group textarea.error { border-color: rgba(220,80,80,0.6); }
 
@@ -2953,6 +2963,85 @@ input, textarea, select { font-family: var(--sans); }
   color: var(--gold);
   margin-bottom: 32px;
   opacity: 0.75;
+}
+
+/* ═══════════════════════════ AURORA HERO ═══════════════════ */
+.prog-hero--aurora { overflow: hidden; }
+
+/* Hide WebGL canvas on aurora variant */
+.prog-hero--aurora .prog-hero__gl { display: none; }
+
+.aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aurora__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 28% 45%, rgba(20,80,45,0.38) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 55% at 74% 58%, rgba(160,110,22,0.28) 0%, transparent 60%);
+  animation: auroraP 12s ease-in-out infinite;
+}
+@keyframes auroraP {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+.aurora__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+}
+.aurora__blob--1 {
+  width: 60%; height: 60%;
+  top: -20%; left: -15%;
+  background: rgba(18,72,40,0.60);
+  animation: auroraB1 32s ease-in-out infinite alternate;
+}
+.aurora__blob--2 {
+  width: 55%; height: 55%;
+  bottom: -20%; right: -12%;
+  background: rgba(155,100,18,0.48);
+  animation: auroraB2 42s ease-in-out infinite alternate;
+}
+.aurora__blob--3 {
+  width: 44%; height: 44%;
+  top: 25%; left: 28%;
+  background: rgba(8,52,28,0.44);
+  animation: auroraB3 55s ease-in-out infinite alternate;
+}
+@keyframes auroraB1 {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(55px,28px) scale(1.18); }
+  100% { transform: translate(-35px,18px) scale(0.94); }
+}
+@keyframes auroraB2 {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(-65px,-32px) scale(1.28); }
+  100% { transform: translate(38px,-18px) scale(0.88); }
+}
+@keyframes auroraB3 {
+  0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+  50%  { transform: translate(28px,-38px) scale(1.12) rotate(180deg); }
+  100% { transform: translate(-22px,28px) scale(0.96) rotate(360deg); }
+}
+
+.aurora__star {
+  position: absolute;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.85);
+  animation: auroraStar var(--dur, 4s) ease-in-out infinite var(--delay, 0s);
+}
+@keyframes auroraStar {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: var(--peak, 0.55); }
 }
 
 /* Responsive program pages */

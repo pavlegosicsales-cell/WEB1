@@ -153,63 +153,61 @@
     });
   }
 
-  /* ── Typewriter scroll effect ── */
+  /* ── Typewriter scroll effect — runs on every .citat__text (not --static) ── */
   function initTypewriter() {
-    const section = document.querySelector('.citat');
-    const textEl = document.getElementById('typewriterText');
-    if (!section || !textEl) return;
+    const textEls = document.querySelectorAll('.citat__text:not(.citat__text--static)');
+    if (!textEls.length) return;
 
-    // Parse innerHTML preserving <br> as newlines
-    const raw = textEl.innerHTML;
-    const parts = raw.split(/<br\s*\/?>/gi);
-    let charSpans = [];
-    let rebuiltHtml = '';
+    textEls.forEach(function(textEl) {
+      const section = textEl.closest('.citat');
+      if (!section) return;
 
-    parts.forEach((part, pi) => {
-      // Decode HTML entities and trim
-      const div = document.createElement('div');
-      div.innerHTML = part;
-      const text = div.textContent || '';
-      text.split('').forEach(ch => {
-        const escaped = ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
-        rebuiltHtml += `<span class="char">${escaped}</span>`;
-        charSpans.push(ch);
+      const raw = textEl.innerHTML;
+      const parts = raw.split(/<br\s*\/?>/gi);
+      let rebuiltHtml = '';
+
+      parts.forEach(function(part, pi) {
+        const div = document.createElement('div');
+        div.innerHTML = part;
+        const text = div.textContent || '';
+        text.split('').forEach(function(ch) {
+          const escaped = ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
+          rebuiltHtml += '<span class="char">' + escaped + '</span>';
+        });
+        if (pi < parts.length - 1) rebuiltHtml += '<br>';
       });
-      if (pi < parts.length - 1) rebuiltHtml += '<br>';
-    });
 
-    textEl.innerHTML = rebuiltHtml;
-    const spans = textEl.querySelectorAll('.char');
-    const total = spans.length;
-    let lastVisible = -1;
+      textEl.innerHTML = rebuiltHtml;
+      const spans = textEl.querySelectorAll('.char');
+      const total = spans.length;
+      let lastVisible = -1;
 
-    function update() {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // Type in: as section top scrolls from 85%vh to 30%vh
-      const enterStart = vh * 0.85;
-      const enterEnd   = vh * 0.20;
-      let progress = (enterStart - rect.top) / (enterStart - enterEnd);
-      progress = Math.max(0, Math.min(1, progress));
+      function update() {
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const enterStart = vh * 0.85;
+        const enterEnd   = vh * 0.20;
+        let progress = (enterStart - rect.top) / (enterStart - enterEnd);
+        progress = Math.max(0, Math.min(1, progress));
 
-      const showCount = Math.round(progress * total);
-      if (showCount === lastVisible) return;
+        const showCount = Math.round(progress * total);
+        if (showCount === lastVisible) return;
 
-      // Batch DOM updates
-      if (showCount > lastVisible) {
-        for (let i = lastVisible; i < showCount; i++) {
-          spans[i] && spans[i].classList.add('visible');
+        if (showCount > lastVisible) {
+          for (let i = lastVisible; i < showCount; i++) {
+            spans[i] && spans[i].classList.add('visible');
+          }
+        } else {
+          for (let i = showCount; i < lastVisible; i++) {
+            spans[i] && spans[i].classList.remove('visible');
+          }
         }
-      } else {
-        for (let i = showCount; i < lastVisible; i++) {
-          spans[i] && spans[i].classList.remove('visible');
-        }
+        lastVisible = showCount;
       }
-      lastVisible = showCount;
-    }
 
-    window.addEventListener('scroll', update, { passive: true });
-    update();
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    });
   }
 
   /* ── WebGL Shader — Programi section background ── */
@@ -681,7 +679,7 @@
 
   /* ── ProceduralGroundBackground for .prog-hero ── */
   function initProgHeroGL() {
-    var section = document.querySelector('.prog-hero');
+    var section = document.querySelector('.prog-hero:not(.prog-hero--aurora)');
     if (!section) return;
 
     var canvas = document.createElement('canvas');
@@ -761,6 +759,25 @@
     io.observe(section);
   }
 
+  /* ── Aurora hero — star particles ── */
+  function initAuroraHero() {
+    var section = document.querySelector('.prog-hero--aurora');
+    if (!section) return;
+    var aurora = section.querySelector('.aurora');
+    if (!aurora) return;
+    for (var i = 0; i < 65; i++) {
+      var star = document.createElement('div');
+      star.className = 'aurora__star';
+      star.style.cssText =
+        'left:' + (Math.random() * 100).toFixed(1) + '%;' +
+        'top:' + (Math.random() * 100).toFixed(1) + '%;' +
+        '--dur:' + (Math.random() * 3 + 2).toFixed(2) + 's;' +
+        '--delay:-' + (Math.random() * 5).toFixed(2) + 's;' +
+        '--peak:' + (Math.random() * 0.65 + 0.15).toFixed(2) + ';';
+      aurora.appendChild(star);
+    }
+  }
+
   /* ── Init ── */
   initTypewriter();
   initProgramiShader();
@@ -770,6 +787,7 @@
   initOrbitalBenefits();
   initFeaturesMarquee();
   initProgHeroGL();
+  initAuroraHero();
   initSideRays(document.querySelector('.testimonials'), { origin: 'top-right', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 3.5, falloff: 1.3, opacity: 1.0, spread: 2.8 });
   initSideRays(document.querySelector('.kontakt'), { origin: 'top-left', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 3.2, blend: 0.55, falloff: 1.4, opacity: 1.0 });
 
