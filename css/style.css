@@ -2708,10 +2708,15 @@ input, textarea, select { font-family: var(--sans); }
 }
 .prog-section--radial-glow .container { position: relative; z-index: 1; }
 .prog-section--radial-glow .whom-card {
-  background: rgba(13,26,18,0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-color: rgba(201,160,54,0.13);
+  background: rgba(11,22,15,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(201,160,54,0.22);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.40), inset 0 1px 0 rgba(201,160,54,0.07);
+}
+.prog-section--radial-glow .whom-card:hover {
+  border-color: rgba(201,160,54,0.48);
+  box-shadow: 0 18px 52px rgba(0,0,0,0.50), inset 0 1px 0 rgba(201,160,54,0.12);
 }
 .prog-section--radial-glow .whom-note {
   background: rgba(26,56,38,0.15);
@@ -2989,6 +2994,78 @@ input, textarea, select { font-family: var(--sans); }
   color: var(--muted);
   line-height: 1.75;
 }
+
+/* ── Whom icon animations ───────────────────────────────── */
+
+/* Color cycling — each card offset so they don't sync */
+.whom-card__icon {
+  animation: whomIconClr 7s ease-in-out infinite;
+}
+.whom-card:nth-child(1) .whom-card__icon { animation-delay:    0s; }
+.whom-card:nth-child(2) .whom-card__icon { animation-delay: -1.4s; }
+.whom-card:nth-child(3) .whom-card__icon { animation-delay: -2.8s; }
+.whom-card:nth-child(4) .whom-card__icon { animation-delay: -4.2s; }
+.whom-card:nth-child(5) .whom-card__icon { animation-delay: -5.6s; }
+
+@keyframes whomIconClr {
+  0%,100% { background: rgba(201,160,54,0.09); border-color: rgba(201,160,54,0.18); color: var(--gold); }
+  40%     { background: rgba(26,92,56,0.20);  border-color: rgba(26,92,56,0.35);  color: #5ec98a; }
+  70%     { background: rgba(201,160,54,0.14); border-color: rgba(201,160,54,0.26); color: #e8c55a; }
+}
+
+/* Card 1 — moon: slow orbit rotation */
+.whom-card:nth-child(1) .whom-card__icon svg {
+  animation: whomSpin 14s linear infinite;
+  transform-origin: center;
+}
+@keyframes whomSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Card 2 — clock: tick pulse + slight shake */
+.whom-card:nth-child(2) .whom-card__icon svg {
+  animation: whomTick 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes whomTick {
+  0%,100% { transform: scale(1) rotate(0deg); }
+  25%      { transform: scale(1.18) rotate(6deg); }
+  50%      { transform: scale(1) rotate(0deg); }
+  75%      { transform: scale(1.12) rotate(-4deg); }
+}
+
+/* Card 3 — bars: grow up/down stagger */
+.whom-card:nth-child(3) .whom-card__icon svg {
+  animation: whomBars 2.4s ease-in-out infinite;
+}
+@keyframes whomBars {
+  0%,100% { transform: scaleY(1) translateY(0); }
+  50%      { transform: scaleY(0.72) translateY(3px); }
+}
+
+/* Card 4 — pulse wave: stretch horizontal */
+.whom-card:nth-child(4) .whom-card__icon svg {
+  animation: whomWave 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes whomWave {
+  0%,100% { transform: scaleX(1); }
+  30%      { transform: scaleX(0.68) rotate(-8deg); }
+  60%      { transform: scaleX(1.22) rotate(5deg); }
+}
+
+/* Card 5 — chat bubble: bounce + rotate */
+.whom-card:nth-child(5) .whom-card__icon svg {
+  animation: whomFloat 3s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+  transform-origin: bottom center;
+}
+@keyframes whomFloat {
+  0%,100% { transform: translateY(0) rotate(0deg) scale(1); }
+  30%      { transform: translateY(-5px) rotate(-8deg) scale(1.1); }
+  65%      { transform: translateY(-2px) rotate(5deg) scale(1.05); }
+}
+
 .whom-note {
   display: flex;
   align-items: flex-start;
