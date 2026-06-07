@@ -2458,6 +2458,16 @@ input, textarea, select { font-family: var(--sans); }
   position: relative;
   overflow: hidden;
 }
+.prog-hero__gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.prog-hero > .container,
+.prog-hero > .prog-hero__inner { position: relative; z-index: 1; }
 .prog-hero::before {
   content: '';
   position: absolute;
@@ -2972,8 +2982,8 @@ input, textarea, select { font-family: var(--sans); }
 @property --sg-shine   { syntax: "<color>";      initial-value: #c9a04c; inherits: false; }
 
 .btn--shiny {
-  --shiny-bg:  #080f0b;
-  --shiny-sub: #1a3826;
+  --shiny-bg:  #000;
+  --shiny-sub: #1a1a1a;
   --shiny-fg:  #f5f0e8;
   --shiny-hl:  #c9a04c;
   --shiny-hls: #e8c96d;

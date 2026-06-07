@@ -622,6 +622,88 @@
     window.addEventListener('resize', check, { passive: true });
   }
 
+  /* ── ProceduralGroundBackground for .prog-hero ── */
+  function initProgHeroGL() {
+    var section = document.querySelector('.prog-hero');
+    if (!section) return;
+
+    var canvas = document.createElement('canvas');
+    canvas.className = 'prog-hero__gl';
+    section.insertBefore(canvas, section.firstChild);
+
+    var gl = canvas.getContext('webgl', { alpha: false, antialias: false });
+    if (!gl) return;
+
+    var VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    var FS = [
+      'precision highp float;',
+      'uniform float u_time;',
+      'uniform vec2 u_res;',
+      'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+      'float noise(vec2 p){',
+      '  vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);',
+      '  return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}',
+      'void main(){',
+      '  vec2 uv=(gl_FragCoord.xy*2.-u_res)/min(u_res.x,u_res.y);',
+      '  float depth=1./(uv.y+1.15);',
+      '  vec2 guv=vec2(uv.x*depth,depth+u_time*0.12);',
+      '  float n=noise(guv*3.5);',
+      '  float rip=sin(guv.y*18.+n*8.+u_time*0.5);',
+      '  float line=smoothstep(0.03,0.,abs(rip));',
+      '  vec3 base=vec3(0.05,0.13,0.09);',   /* #0d2218 dark green */
+      '  vec3 acc=vec3(0.49,0.39,0.19);',    /* #7d6330 warm dark gold */
+      '  vec3 neon=vec3(0.79,0.63,0.30);',   /* #c9a04c gold */
+      '  vec3 col=mix(base,acc,n*0.55);',
+      '  col+=line*neon*depth*0.35;',
+      '  float fade=smoothstep(0.1,-1.,uv.y);',
+      '  col*=(1.-length(uv)*0.4)*(1.-fade);',
+      '  gl_FragColor=vec4(col,1.);',
+      '}'
+    ].join('\n');
+
+    function mkShader(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s); return s;
+    }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog); gl.useProgram(prog);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    var uTime = gl.getUniformLocation(prog, 'u_time');
+    var uRes  = gl.getUniformLocation(prog, 'u_res');
+    var raf = null, visible = false;
+
+    function resize() {
+      var w = section.offsetWidth, h = section.offsetHeight;
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    function loop(t) {
+      gl.uniform1f(uTime, t * 0.001);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (visible) raf = requestAnimationFrame(loop);
+    }
+
+    var io = new IntersectionObserver(function(entries) {
+      visible = entries[0].isIntersecting;
+      if (visible && !raf) raf = requestAnimationFrame(loop);
+      if (!visible && raf) { cancelAnimationFrame(raf); raf = null; }
+    }, { threshold: 0 });
+    io.observe(section);
+  }
+
   /* ── Init ── */
   initTypewriter();
   initProgramiShader();
@@ -630,6 +712,7 @@
   initKontaktTilt();
   initOrbitalBenefits();
   initFeaturesMarquee();
+  initProgHeroGL();
   initSideRays(document.querySelector('.testimonials'), { origin: 'top-right', rayColor1: '#c9a04c', rayColor2: '#1a5c38', intensity: 1.8 });
   initSideRays(document.querySelector('.kontakt'), { origin: 'top-left', rayColor1: '#c9a04c', rayColor2: '#0d3020', intensity: 1.5, blend: 0.65 });
 
