@@ -3267,6 +3267,43 @@ input, textarea, select { font-family: var(--sans); }
   color: var(--gold);
   flex-shrink: 0;
 }
+
+/* Per-item unique icons in includes list */
+.prog-includes__item-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(201,160,54,0.08);
+  border: 1px solid rgba(201,160,54,0.16);
+  color: rgba(201,160,54,0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+}
+.prog-includes:hover .prog-includes__item-icon {
+  background: rgba(201,160,54,0.20);
+  border-color: rgba(201,160,54,0.40);
+  color: var(--gold);
+}
+
+/* "Preporučeno" / VIP badge pinned to top of includes card */
+.prog-includes__badge {
+  position: absolute;
+  top: -1px;
+  right: 32px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0d2018;
+  background: linear-gradient(135deg, #c9a036 0%, #e8c55a 50%, #c9a036 100%);
+  padding: 5px 16px 6px;
+  border-radius: 0 0 10px 10px;
+  z-index: 3;
+  box-shadow: 0 4px 18px rgba(201,160,54,0.40);
+}
 .prog-includes__footer {
   display: flex;
   align-items: center;
