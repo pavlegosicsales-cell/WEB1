@@ -650,13 +650,13 @@
       '  float n=noise(guv*3.5);',
       '  float rip=sin(guv.y*18.+n*8.+u_time*0.5);',
       '  float line=smoothstep(0.03,0.,abs(rip));',
-      '  vec3 base=vec3(0.05,0.13,0.09);',   /* #0d2218 dark green */
-      '  vec3 acc=vec3(0.49,0.39,0.19);',    /* #7d6330 warm dark gold */
-      '  vec3 neon=vec3(0.79,0.63,0.30);',   /* #c9a04c gold */
-      '  vec3 col=mix(base,acc,n*0.55);',
-      '  col+=line*neon*depth*0.35;',
+      '  vec3 base=vec3(0.09,0.22,0.13);',   /* brighter forest green */
+      '  vec3 acc=vec3(0.65,0.50,0.22);',    /* warm gold-green */
+      '  vec3 neon=vec3(0.93,0.78,0.40);',   /* bright gold */
+      '  vec3 col=mix(base,acc,n*0.75);',
+      '  col+=line*neon*depth*0.6;',
       '  float fade=smoothstep(0.1,-1.,uv.y);',
-      '  col*=(1.-length(uv)*0.4)*(1.-fade);',
+      '  col*=(1.-length(uv)*0.22)*(1.-fade);',
       '  gl_FragColor=vec4(col,1.);',
       '}'
     ].join('\n');
