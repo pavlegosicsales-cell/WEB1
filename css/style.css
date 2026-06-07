@@ -2982,8 +2982,8 @@ input, textarea, select { font-family: var(--sans); }
 @property --sg-shine   { syntax: "<color>";      initial-value: #c9a04c; inherits: false; }
 
 .btn--shiny {
-  --shiny-bg:  #000;
-  --shiny-sub: #1a1a1a;
+  --shiny-bg:  #0d2218;
+  --shiny-sub: #1a3826;
   --shiny-fg:  #f5f0e8;
   --shiny-hl:  #c9a04c;
   --shiny-hls: #e8c96d;
