@@ -3015,6 +3015,7 @@ input, textarea, select { font-family: var(--sans); }
 
 /* ── Whom grid redesign ─────────────────────────────────── */
 .whom-intro {
+  color: var(--warm) !important;
   text-align: center;
   margin: 0 auto 48px;
   color: rgba(13,32,24,0.62) !important;
