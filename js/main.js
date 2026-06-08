@@ -778,6 +778,89 @@
     }
   }
 
+  /* ── "Odaberite vaš tempo" cards — dot pattern (MagicUI DotPattern port) ── */
+  function initTempoDotPattern() {
+    var section = null;
+    document.querySelectorAll('.prog-section').forEach(function(s) {
+      var h = s.querySelector('h2');
+      if (h && h.textContent.indexOf('tempo') !== -1) section = s;
+    });
+    if (!section) return;
+
+    var cards = Array.from(section.querySelectorAll('.card'));
+    if (!cards.length) return;
+
+    cards.forEach(function(card) {
+      card.classList.add('card--tempo');
+      card.insertBefore(buildTempoDots(), card.firstChild);
+    });
+  }
+
+  function buildTempoDots() {
+    var ns = 'http://www.w3.org/2000/svg';
+    var uid = 'tdp' + (Math.random() * 1e6 | 0);
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'tempo-dots');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+
+    var defs = document.createElementNS(ns, 'defs');
+    var pat  = document.createElementNS(ns, 'pattern');
+    pat.setAttribute('id', uid);
+    pat.setAttribute('x', '0');  pat.setAttribute('y', '0');
+    pat.setAttribute('width', '16'); pat.setAttribute('height', '16');
+    pat.setAttribute('patternUnits', 'userSpaceOnUse');
+
+    var dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', '1'); dot.setAttribute('cy', '1'); dot.setAttribute('r', '1');
+    dot.setAttribute('fill', 'rgba(201,160,54,0.65)');
+
+    pat.appendChild(dot); defs.appendChild(pat); svg.appendChild(defs);
+
+    var rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('width', '100%'); rect.setAttribute('height', '100%');
+    rect.setAttribute('fill', 'url(#' + uid + ')');
+    svg.appendChild(rect);
+
+    return svg;
+  }
+
+  /* ── "Pet faza dubinskog reseta" phases — enhanced cards ── */
+  function initPhasesCards() {
+    var phases = Array.from(document.querySelectorAll('.prog-phase'));
+    if (!phases.length) return;
+
+    phases.forEach(function(phase) {
+      phase.classList.add('prog-phase--enhanced');
+
+      var arrow = phase.querySelector('.prog-phase__arrow');
+      var wm = document.createElement('div');
+      wm.className = 'prog-phase__watermark';
+      wm.setAttribute('aria-hidden', 'true');
+      wm.textContent = arrow ? arrow.textContent : '';
+      phase.appendChild(wm);
+
+      phase.addEventListener('mouseenter', function() {
+        phase.classList.add('is-hovered');
+      });
+      phase.addEventListener('mouseleave', function() {
+        phase.classList.remove('is-hovered');
+        phase.style.setProperty('--ph-tilt-x', '0deg');
+        phase.style.setProperty('--ph-tilt-y', '0deg');
+      });
+      phase.addEventListener('mousemove', function(e) {
+        var r = phase.getBoundingClientRect();
+        var xPct = (e.clientX - r.left) / r.width;
+        var yPct = (e.clientY - r.top)  / r.height;
+        phase.style.setProperty('--ph-x', (xPct * 100).toFixed(1) + '%');
+        phase.style.setProperty('--ph-y', (yPct * 100).toFixed(1) + '%');
+        phase.style.setProperty('--ph-tilt-x', ((yPct - 0.5) * -8).toFixed(2) + 'deg');
+        phase.style.setProperty('--ph-tilt-y', ((xPct - 0.5) *  9).toFixed(2) + 'deg');
+      });
+    });
+  }
+
   /* ── MagicBento-style effects for .whom-card (spotlight, border glow, particles, ripple, tilt) ── */
   function initWhomCards() {
     var grid = document.querySelector('.whom-grid');
@@ -1030,6 +1113,8 @@
   /* ── Init ── */
   initWhomCards();
   initAnimatedGrid();
+  initTempoDotPattern();
+  initPhasesCards();
   initGlowButtons();
   initTypewriter();
   initProgramiShader();
