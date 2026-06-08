@@ -4036,3 +4036,13 @@ input, textarea, select { font-family: var(--sans); }
 
 @keyframes shinyAngle   { to { --sg-angle: 360deg; } }
 @keyframes shinyShimmer { to { rotate: 360deg; } }
+
+/* Larger shiny button for prog-cta card */
+.btn--shiny--cta {
+  padding: 15px 42px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  border-radius: 100px;
+  gap: 0px;
+  --dur: 6s;
+}
