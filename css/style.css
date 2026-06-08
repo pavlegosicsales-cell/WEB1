@@ -3034,12 +3034,86 @@ input, textarea, select { font-family: var(--sans); }
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  /* MagicBento custom properties */
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 260px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: border-color 0.35s ease, transform 0.18s ease, box-shadow 0.35s ease;
 }
 .whom-card:hover {
   border-color: rgba(201,160,54,0.38);
-  transform: translateY(-5px);
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-5px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.28), 0 0 0 1px rgba(201,160,54,0.07);
+}
+/* Cursor-following border glow (MagicBento border-glow effect) */
+.whom-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(201,160,54, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(201,160,54, calc(var(--glow-intensity) * 0.45)) 30%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+/* Global spotlight that hovers over the whole whom-grid */
+.whom-spotlight {
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle,
+    rgba(201,160,54,0.11) 0%,
+    rgba(201,160,54,0.05) 22%,
+    rgba(201,160,54,0.025) 38%,
+    rgba(201,160,54,0.008) 55%,
+    transparent 70%
+  );
+  z-index: 9999;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  will-change: left, top, opacity;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+/* Star particles */
+.whom-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(201,160,54,1);
+  box-shadow: 0 0 6px rgba(201,160,54,0.7), 0 0 12px rgba(201,160,54,0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+/* Click ripple */
+.whom-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  transform: scale(0);
+  background: radial-gradient(circle, rgba(201,160,54,0.32) 0%, rgba(201,160,54,0.14) 35%, transparent 70%);
+  transition: transform 0.75s ease-out, opacity 0.75s ease-out;
 }
 .whom-card--offset:nth-child(4) { grid-column: 2 / span 2; }
 .whom-card--offset:nth-child(5) { grid-column: 4 / span 2; }

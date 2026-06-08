@@ -778,6 +778,166 @@
     }
   }
 
+  /* ── MagicBento-style effects for .whom-card (spotlight, border glow, particles, ripple, tilt) ── */
+  function initWhomCards() {
+    var grid = document.querySelector('.whom-grid');
+    if (!grid || window.innerWidth <= 768) return;
+
+    var cards = Array.from(grid.querySelectorAll('.whom-card'));
+    if (!cards.length) return;
+
+    // Global spotlight
+    var spotlight = document.createElement('div');
+    spotlight.className = 'whom-spotlight';
+    document.body.appendChild(spotlight);
+
+    var GLOW_COLOR = '201,160,54';
+    var RADIUS = 260;
+    var PROXIMITY = RADIUS * 0.5;
+    var FADE_DIST = RADIUS * 0.75;
+
+    function overGrid(e) {
+      var r = grid.getBoundingClientRect();
+      return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+    }
+
+    function cardDist(e, card) {
+      var r = card.getBoundingClientRect();
+      var d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2)) -
+              Math.max(r.width, r.height) / 2;
+      return Math.max(0, d);
+    }
+
+    document.addEventListener('mousemove', function(e) {
+      if (!overGrid(e)) {
+        spotlight.style.opacity = '0';
+        cards.forEach(function(c) { c.style.setProperty('--glow-intensity', '0'); });
+        return;
+      }
+      // Move spotlight
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top  = e.clientY + 'px';
+
+      var minDist = Infinity;
+      cards.forEach(function(card) {
+        var r = card.getBoundingClientRect();
+        var relX = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+        var relY = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+        var dist = cardDist(e, card);
+        var intensity = dist <= PROXIMITY ? 1 : (dist <= FADE_DIST ? (FADE_DIST - dist) / (FADE_DIST - PROXIMITY) : 0);
+        card.style.setProperty('--glow-x', relX);
+        card.style.setProperty('--glow-y', relY);
+        card.style.setProperty('--glow-intensity', intensity.toFixed(3));
+        minDist = Math.min(minDist, dist);
+      });
+
+      var sp = minDist <= PROXIMITY ? 0.85 :
+               minDist <= FADE_DIST ? ((FADE_DIST - minDist) / (FADE_DIST - PROXIMITY)) * 0.85 : 0;
+      spotlight.style.opacity = sp;
+    });
+
+    document.addEventListener('mouseleave', function() {
+      spotlight.style.opacity = '0';
+      cards.forEach(function(c) { c.style.setProperty('--glow-intensity', '0'); });
+    });
+
+    // Per-card: tilt + particles + ripple
+    cards.forEach(function(card) {
+      var isHovered = false;
+      var particles = [];
+      var timeouts = [];
+
+      function spawnParticles() {
+        var r = card.getBoundingClientRect();
+        for (var i = 0; i < 10; i++) {
+          (function(idx) {
+            var tid = setTimeout(function() {
+              if (!isHovered) return;
+              var p = document.createElement('div');
+              p.className = 'whom-particle';
+              var px = Math.random() * r.width;
+              var py = Math.random() * r.height;
+              p.style.cssText = 'left:' + px + 'px;top:' + py + 'px;opacity:0;transform:scale(0);' +
+                'transition:opacity 0.28s ease,transform 0.28s cubic-bezier(0.34,1.56,0.64,1);';
+              card.appendChild(p);
+              particles.push(p);
+              requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                  p.style.opacity = '1'; p.style.transform = 'scale(1)';
+                  setTimeout(function() {
+                    var dx = (Math.random() - 0.5) * 90;
+                    var dy = (Math.random() - 0.5) * 90;
+                    var rot = Math.random() * 360;
+                    var dur = 1.4 + Math.random() * 1.4;
+                    p.style.transition = 'transform ' + dur + 's ease-in-out,opacity ' + dur + 's ease-in-out';
+                    p.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg) scale(0.5)';
+                    p.style.opacity = '0.35';
+                    setTimeout(function() { p.style.opacity = '0'; }, dur * 700);
+                  }, 280);
+                });
+              });
+            }, idx * 90);
+            timeouts.push(tid);
+          })(i);
+        }
+      }
+
+      function clearParticles() {
+        timeouts.forEach(clearTimeout); timeouts = [];
+        particles.forEach(function(p) {
+          p.style.transition = 'opacity 0.25s ease,transform 0.25s ease';
+          p.style.opacity = '0'; p.style.transform = 'scale(0)';
+          setTimeout(function() { if (p.parentNode) p.parentNode.removeChild(p); }, 250);
+        });
+        particles = [];
+      }
+
+      card.addEventListener('mouseenter', function() {
+        isHovered = true;
+        spawnParticles();
+      });
+
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var cx = r.width / 2, cy = r.height / 2;
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        var rotX = ((y - cy) / cy) * -7;
+        var rotY = ((x - cx) / cx) * 7;
+        card.style.setProperty('--tilt-x', rotX.toFixed(2) + 'deg');
+        card.style.setProperty('--tilt-y', rotY.toFixed(2) + 'deg');
+      });
+
+      card.addEventListener('mouseleave', function() {
+        isHovered = false;
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+        clearParticles();
+      });
+
+      card.addEventListener('click', function(e) {
+        var r = card.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        var maxD = Math.max(Math.hypot(x,y), Math.hypot(x-r.width,y), Math.hypot(x,y-r.height), Math.hypot(x-r.width,y-r.height));
+        var rip = document.createElement('div');
+        rip.className = 'whom-ripple';
+        var s = maxD * 2;
+        rip.style.cssText = 'width:' + s + 'px;height:' + s + 'px;left:' + (x-maxD) + 'px;top:' + (y-maxD) + 'px;';
+        card.appendChild(rip);
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            rip.style.transform = 'scale(1)';
+            rip.style.opacity = '0';
+            setTimeout(function() { if (rip.parentNode) rip.parentNode.removeChild(rip); }, 750);
+          });
+        });
+      });
+    });
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth <= 768) spotlight.style.opacity = '0';
+    });
+  }
+
   /* ── Animated grid for prog-includes (MagicUI AnimatedGridPattern) ── */
   function initAnimatedGrid() {
     document.querySelectorAll('.prog-includes').forEach(function(box) {
@@ -868,6 +1028,7 @@
   }
 
   /* ── Init ── */
+  initWhomCards();
   initAnimatedGrid();
   initGlowButtons();
   initTypewriter();
