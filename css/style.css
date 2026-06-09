@@ -2538,11 +2538,34 @@ input, textarea, select { font-family: var(--sans); }
   .testimonials__col--lg { display: block; }
 }
 
+/* Mobile: hide vertical columns, show horizontal strip instead */
+.testimonials__mobile-strip { display: none; }
+
 @media (max-width: 767px) {
-  .testimonials__col     { width: 100%; max-width: 440px; }
-  .testimonials__col--md { display: none !important; }
-  .testimonials__col--lg { display: none !important; }
-  .testimonials__cols    { padding: 0 20px; justify-content: center; }
+  .testimonials__viewport    { display: none; }
+  .testimonials__mobile-strip {
+    display: block;
+    overflow: hidden;
+    margin-top: 40px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  .testimonials__mobile-inner {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: scroll-mobile-row 38s linear infinite;
+    padding: 8px 0 16px;
+  }
+  .testimonials__mobile-inner:hover { animation-play-state: paused; }
+  .testimonials__mobile-inner .tcard {
+    width: 272px;
+    flex-shrink: 0;
+  }
+}
+@keyframes scroll-mobile-row {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @keyframes strip-scroll {
