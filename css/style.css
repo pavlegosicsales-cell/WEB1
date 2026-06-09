@@ -2493,7 +2493,7 @@ input, textarea, select { font-family: var(--sans); }
     z-index: 0;
     opacity: 0.22;
   }
-  .hero__tree { height: 100%; width: auto; }
+  .hero__tree { height: 100%; width: auto; mix-blend-mode: normal; }
   .hero__inner    { padding: 80px 20px 140px; position: relative; z-index: 2; }
   .hero__h1       { font-size: clamp(42px, 10vw, 60px); }
   .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
