@@ -1788,6 +1788,7 @@ input, textarea, select { font-family: var(--sans); }
   gap: 88px;
   align-items: start;
 }
+.kontakt__inner > * { min-width: 0; }
 
 .kontakt__desc {
   font-size: 14px;
@@ -4131,6 +4132,17 @@ input, textarea, select { font-family: var(--sans); }
 
 @keyframes shinyAngle   { to { --sg-angle: 360deg; } }
 @keyframes shinyShimmer { to { rotate: 360deg; } }
+
+/* ── "Odaberite vaš tempo" grid wrapper ── */
+.tempo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+@media (max-width: 640px) {
+  .tempo-grid { grid-template-columns: 1fr; }
+}
 
 /* ── "Odaberite vaš tempo" cards — dot pattern + enhanced hover ── */
 .card--tempo {
