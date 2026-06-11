@@ -355,18 +355,7 @@
   background: radial-gradient(ellipse 60% 50% at 70% 20%, rgba(201,160,54,0.055) 0%, transparent 60%);
   pointer-events: none;
 }
-/* Large decorative quote character */
-.knjiga-author__quote-mark {
-  position: absolute;
-  top: 24px; left: 44px;
-  font-family: var(--serif);
-  font-size: 110px;
-  line-height: 1;
-  color: rgba(201,160,54,0.12);
-  font-weight: 700;
-  pointer-events: none;
-  user-select: none;
-}
+.knjiga-author__quote-mark { display: none; }
 .knjiga-author__quote p {
   font-family: var(--serif);
   font-size: clamp(17px, 2vw, 21px);
@@ -379,26 +368,26 @@
 }
 .knjiga-author__sig {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0 20px;
+  grid-template-columns: 52px 1fr;
+  gap: 0 18px;
   align-items: center;
   padding-top: 24px;
   border-top: 1px solid rgba(201,160,54,0.15);
   position: relative;
   z-index: 1;
 }
-/* Gold dot accent before name */
-.knjiga-author__sig::before {
-  content: '';
-  width: 36px;
-  height: 36px;
+.knjiga-author__avatar {
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,160,54,0.3) 0%, rgba(201,160,54,0.06) 70%);
-  border: 1px solid rgba(201,160,54,0.3);
-  flex-shrink: 0;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid rgba(201,160,54,0.45);
   grid-row: 1 / 4;
   grid-column: 1;
   align-self: center;
+  display: block;
+  filter: brightness(1.05) contrast(1.02);
 }
 .knjiga-author__name {
   font-family: var(--serif);
