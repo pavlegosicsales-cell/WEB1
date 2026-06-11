@@ -826,37 +826,44 @@
     return svg;
   }
 
-  /* ── Order modal (knjiga "Naruči" buttons) ── */
+  /* ── Order modal — real email via Web3Forms ── */
   function initOrderModal() {
     var modal = document.getElementById('orderModal');
     if (!modal) return;
 
-    var card    = document.getElementById('orderCard');
-    var overlay = document.getElementById('orderOverlay');
-    var closeBtn= document.getElementById('orderClose');
-    var form    = document.getElementById('orderForm');
-    var bodyEl  = document.getElementById('orderBody');
-    var successEl = document.getElementById('orderSuccess');
-    var submitBtn = document.getElementById('orderSubmit');
+    var card       = document.getElementById('orderCard');
+    var overlay    = document.getElementById('orderOverlay');
+    var closeBtn   = document.getElementById('orderClose');
+    var form       = document.getElementById('orderForm');
+    var emailInput = document.getElementById('orderEmail');
+    var submitBtn  = document.getElementById('orderSubmit');
+    var submitText = submitBtn ? submitBtn.querySelector('.order-submit__text') : null;
+    var submitArrow= submitBtn ? submitBtn.querySelector('.order-submit__arrow') : null;
+    var submitSpinner = submitBtn ? submitBtn.querySelector('.order-submit__spinner') : null;
+    var successEl  = document.getElementById('orderSuccess');
+    var errorEl    = document.getElementById('orderError');
     var formatOpts = Array.from(modal.querySelectorAll('.order-format__opt'));
     var selectedFmt = 'digital';
+
+    /* ─── Replace this key: sign up free at web3forms.com/get-access-key ─── */
+    var WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
 
     function openModal(fmt) {
       selectedFmt = fmt || 'digital';
       form.reset();
-      bodyEl.hidden = false;
+      form.hidden = false;
       successEl.hidden = true;
-      submitBtn.querySelector('.order-submit__text').hidden = false;
-      submitBtn.querySelector('.order-submit__loading').hidden = true;
+      if (errorEl) errorEl.hidden = true;
+      submitBtn.classList.remove('is-loading');
       submitBtn.disabled = false;
+      if (submitText)   submitText.hidden   = false;
+      if (submitArrow)  submitArrow.hidden  = false;
+      if (submitSpinner) submitSpinner.hidden = true;
       setFormat(selectedFmt);
       modal.classList.add('is-open');
       modal.removeAttribute('aria-hidden');
       document.body.style.overflow = 'hidden';
-      setTimeout(function() {
-        var first = form.querySelector('input');
-        if (first) first.focus();
-      }, 420);
+      setTimeout(function() { if (emailInput) emailInput.focus(); }, 420);
     }
 
     function closeModal() {
@@ -872,7 +879,15 @@
       });
     }
 
-    // Trigger: any element with [data-order]
+    function setLoading(on) {
+      submitBtn.classList.toggle('is-loading', on);
+      submitBtn.disabled = on;
+      if (submitText)    submitText.hidden    = on;
+      if (submitArrow)   submitArrow.hidden   = on;
+      if (submitSpinner) submitSpinner.hidden = !on;
+    }
+
+    // Open on any [data-order] click
     document.addEventListener('click', function(e) {
       var trigger = e.target.closest('[data-order]');
       if (!trigger) return;
@@ -881,31 +896,60 @@
     });
 
     // Close
-    if (overlay) overlay.addEventListener('click', closeModal);
+    if (overlay)  overlay.addEventListener('click', closeModal);
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeModal();
-    });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
     // Format toggle
     formatOpts.forEach(function(opt) {
       opt.addEventListener('click', function() { setFormat(opt.getAttribute('data-fmt')); });
     });
 
-    // Submit
+    // Submit → Web3Forms
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      submitBtn.querySelector('.order-submit__text').hidden = true;
-      submitBtn.querySelector('.order-submit__loading').hidden = false;
-      submitBtn.disabled = true;
-      setTimeout(function() {
-        bodyEl.hidden = true;
-        successEl.hidden = false;
-        setTimeout(closeModal, 3800);
-      }, 1600);
+      var email = emailInput ? emailInput.value.trim() : '';
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (errorEl) { errorEl.textContent = 'Molimo unesite validnu email adresu.'; errorEl.hidden = false; }
+        if (emailInput) emailInput.focus();
+        return;
+      }
+      if (errorEl) errorEl.hidden = true;
+      setLoading(true);
+
+      var fmtLabel = selectedFmt === 'digital' ? 'Ebook — 990 din' : 'Štampana knjiga — 1.490 din';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nova narudžbina knjige: ' + fmtLabel,
+          from_name: 'Therapeutica Knjiga',
+          email: email,
+          message: 'Nova narudžbina!\n\nFormat: ' + fmtLabel + '\nEmail kupca: ' + email + '\n\nPošaljite uputstva za plaćanje na ovaj email.'
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        setLoading(false);
+        if (data.success) {
+          form.hidden = true;
+          successEl.hidden = false;
+          setTimeout(closeModal, 4500);
+        } else {
+          if (errorEl) { errorEl.textContent = 'Greška. Pokušajte ponovo ili nas kontaktirajte direktno.'; errorEl.hidden = false; }
+          submitBtn.disabled = false;
+        }
+      })
+      .catch(function() {
+        setLoading(false);
+        if (errorEl) { errorEl.textContent = 'Greška pri slanju. Proverite internet vezu.'; errorEl.hidden = false; }
+        submitBtn.disabled = false;
+      });
     });
 
-    // 3D tilt on desktop
+    // 3D tilt
     if (card && window.innerWidth > 768) {
       card.addEventListener('mousemove', function(e) {
         var r = card.getBoundingClientRect();
@@ -913,8 +957,8 @@
         var yP = (e.clientY - r.top)  / r.height;
         card.style.setProperty('--om-gx', (xP * 100).toFixed(1) + '%');
         card.style.setProperty('--om-gy', (yP * 100).toFixed(1) + '%');
-        card.style.setProperty('--om-tilt-x', ((yP - 0.5) * -6).toFixed(2) + 'deg');
-        card.style.setProperty('--om-tilt-y', ((xP - 0.5) *  7).toFixed(2) + 'deg');
+        card.style.setProperty('--om-tilt-x', ((yP - 0.5) * -8).toFixed(2) + 'deg');
+        card.style.setProperty('--om-tilt-y', ((xP - 0.5) *  9).toFixed(2) + 'deg');
       });
       card.addEventListener('mouseleave', function() {
         card.style.setProperty('--om-tilt-x', '0deg');
