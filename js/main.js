@@ -826,6 +826,103 @@
     return svg;
   }
 
+  /* ── Order modal (knjiga "Naruči" buttons) ── */
+  function initOrderModal() {
+    var modal = document.getElementById('orderModal');
+    if (!modal) return;
+
+    var card    = document.getElementById('orderCard');
+    var overlay = document.getElementById('orderOverlay');
+    var closeBtn= document.getElementById('orderClose');
+    var form    = document.getElementById('orderForm');
+    var bodyEl  = document.getElementById('orderBody');
+    var successEl = document.getElementById('orderSuccess');
+    var submitBtn = document.getElementById('orderSubmit');
+    var formatOpts = Array.from(modal.querySelectorAll('.order-format__opt'));
+    var selectedFmt = 'digital';
+
+    function openModal(fmt) {
+      selectedFmt = fmt || 'digital';
+      form.reset();
+      bodyEl.hidden = false;
+      successEl.hidden = true;
+      submitBtn.querySelector('.order-submit__text').hidden = false;
+      submitBtn.querySelector('.order-submit__loading').hidden = true;
+      submitBtn.disabled = false;
+      setFormat(selectedFmt);
+      modal.classList.add('is-open');
+      modal.removeAttribute('aria-hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        var first = form.querySelector('input');
+        if (first) first.focus();
+      }, 420);
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function setFormat(fmt) {
+      selectedFmt = fmt;
+      formatOpts.forEach(function(opt) {
+        opt.classList.toggle('order-format__opt--active', opt.getAttribute('data-fmt') === fmt);
+      });
+    }
+
+    // Trigger: any element with [data-order]
+    document.addEventListener('click', function(e) {
+      var trigger = e.target.closest('[data-order]');
+      if (!trigger) return;
+      e.preventDefault();
+      openModal(trigger.getAttribute('data-order'));
+    });
+
+    // Close
+    if (overlay) overlay.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Format toggle
+    formatOpts.forEach(function(opt) {
+      opt.addEventListener('click', function() { setFormat(opt.getAttribute('data-fmt')); });
+    });
+
+    // Submit
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.querySelector('.order-submit__text').hidden = true;
+      submitBtn.querySelector('.order-submit__loading').hidden = false;
+      submitBtn.disabled = true;
+      setTimeout(function() {
+        bodyEl.hidden = true;
+        successEl.hidden = false;
+        setTimeout(closeModal, 3800);
+      }, 1600);
+    });
+
+    // 3D tilt on desktop
+    if (card && window.innerWidth > 768) {
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var xP = (e.clientX - r.left) / r.width;
+        var yP = (e.clientY - r.top)  / r.height;
+        card.style.setProperty('--om-gx', (xP * 100).toFixed(1) + '%');
+        card.style.setProperty('--om-gy', (yP * 100).toFixed(1) + '%');
+        card.style.setProperty('--om-tilt-x', ((yP - 0.5) * -6).toFixed(2) + 'deg');
+        card.style.setProperty('--om-tilt-y', ((xP - 0.5) *  7).toFixed(2) + 'deg');
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.setProperty('--om-tilt-x', '0deg');
+        card.style.setProperty('--om-tilt-y', '0deg');
+      });
+    }
+  }
+
   /* ── Ebook section: cover 3D tilt + phase cards ── */
   function initEbookInteractivity() {
     // Cover 3D tilt
@@ -1162,6 +1259,7 @@
   initTempoDotPattern();
   initPhasesCards();
   initEbookInteractivity();
+  initOrderModal();
   initGlowButtons();
   initTypewriter();
   initProgramiShader();

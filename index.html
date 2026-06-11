@@ -737,7 +737,7 @@
                 <span>Digitalna verzija</span>
               </div>
               <div class="ebook__price-amount">990 <small>din</small></div>
-              <a href="kontakt.html" class="btn btn--gold-outline btn--sm">
+              <a href="kontakt.html" data-order="digital" class="btn btn--gold-outline btn--sm">
                 <span>Naruči</span>
                 <svg class="btn-arr" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
               </a>
@@ -749,7 +749,7 @@
                 <span>Štampana verzija</span>
               </div>
               <div class="ebook__price-amount">1.490 <small>din</small></div>
-              <a href="kontakt.html" class="btn btn--gold btn--sm">
+              <a href="kontakt.html" data-order="print" class="btn btn--gold btn--sm">
                 <span>Naruči</span>
                 <svg class="btn-arr" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
               </a>
@@ -1294,5 +1294,78 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- ══════════ ORDER MODAL ══════════ -->
+  <div id="orderModal" class="order-modal" role="dialog" aria-modal="true" aria-label="Naruči knjigu" aria-hidden="true">
+    <div class="order-modal__overlay" id="orderOverlay"></div>
+    <div class="order-modal__wrap">
+    <div class="order-modal__card" id="orderCard">
+      <!-- Animated gold border beams -->
+      <div class="order-beams" aria-hidden="true">
+        <span class="order-beam order-beam--t"></span>
+        <span class="order-beam order-beam--r"></span>
+        <span class="order-beam order-beam--b"></span>
+        <span class="order-beam order-beam--l"></span>
+      </div>
+      <!-- Close -->
+      <button class="order-modal__close" id="orderClose" aria-label="Zatvori">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l12 12M14 2L2 14"/></svg>
+      </button>
+      <!-- Header -->
+      <div class="order-modal__head">
+        <span class="section-label">Nova Naturopatija</span>
+        <h3 class="order-modal__title">Naruči knjigu</h3>
+        <p class="order-modal__sub">Izaberite format i unesite vaše podatke — kontaktiraćemo vas u roku od 24h.</p>
+      </div>
+      <!-- Body: format + form (hidden when showing success) -->
+      <div id="orderBody">
+        <div class="order-format" id="orderFormat">
+          <button class="order-format__opt" data-fmt="digital" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+            <span>Ebook <em>990 din</em></span>
+          </button>
+          <button class="order-format__opt" data-fmt="print" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20H4v-5h16v5h-5"/><path d="M9 14v-4h6v4"/></svg>
+            <span>Štampana <em>1.490 din</em></span>
+          </button>
+        </div>
+        <form class="order-form" id="orderForm" novalidate>
+          <div class="order-field">
+            <div class="order-field__icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <input type="text" id="orderName" placeholder="Ime i prezime" autocomplete="name" required />
+          </div>
+          <div class="order-field">
+            <div class="order-field__icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <input type="email" id="orderEmail" placeholder="Email adresa" autocomplete="email" required />
+          </div>
+          <div class="order-field">
+            <div class="order-field__icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <input type="tel" id="orderPhone" placeholder="Broj telefona (opciono)" autocomplete="tel" />
+          </div>
+          <button type="submit" class="order-submit" id="orderSubmit">
+            <span class="order-submit__text">Pošalji narudžbinu</span>
+            <span class="order-submit__loading" hidden>
+              <span class="order-submit__spinner" aria-hidden="true"></span>
+            </span>
+          </button>
+        </form>
+      </div>
+      <!-- Success state -->
+      <div class="order-success" id="orderSuccess" hidden>
+        <div class="order-success__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h4 class="order-success__title">Narudžbina primljena!</h4>
+        <p class="order-success__msg">Kontaktiraćemo vas na unetoj email adresi u roku od 24h sa uputstvima za plaćanje i preuzimanje.</p>
+      </div>
+    </div>
+    </div>
+  </div>
 </body>
 </html>
