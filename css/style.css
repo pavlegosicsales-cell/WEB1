@@ -2536,9 +2536,9 @@ input, textarea, select { font-family: var(--sans); }
   .hero__h1::before {
     content: '';
     position: absolute;
-    inset: -24px -40px;
+    inset: -18px 12px;
     background: rgba(9, 19, 13, 0.92);
-    filter: blur(42px);
+    filter: blur(56px);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
