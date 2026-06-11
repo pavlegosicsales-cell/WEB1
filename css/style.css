@@ -2514,7 +2514,7 @@ input, textarea, select { font-family: var(--sans); }
   .hero__kicker {
     width: fit-content;
     padding: 6px 14px;
-    background: rgba(9, 19, 13, 0.72);
+    background: rgba(9, 19, 13, 0.52);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 160, 54, 0.26);
@@ -2524,12 +2524,24 @@ input, textarea, select { font-family: var(--sans); }
   }
   .hero__tagline {
     padding: 8px 16px;
-    background: rgba(9, 19, 13, 0.72);
+    background: rgba(9, 19, 13, 0.52);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 160, 54, 0.26);
     border-radius: 8px;
     margin-bottom: 32px;
+  }
+
+  /* Dark blur mask behind the h1 on mobile */
+  .hero__h1::before {
+    content: '';
+    position: absolute;
+    inset: -24px -40px;
+    background: rgba(9, 19, 13, 0.92);
+    filter: blur(42px);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
   }
   .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
   .hero__actions  { flex-wrap: wrap; }
