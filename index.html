@@ -29,6 +29,7 @@
         <li><a href="index.html">Početna</a></li>
         <li><a href="o-meni.html">O meni</a></li>
         <li><a href="#programi">Programi</a></li>
+        <li><a href="knjiga.html">Knjiga</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
 
@@ -47,6 +48,7 @@
         <li><a href="index.html">Početna</a></li>
         <li><a href="o-meni.html">O meni</a></li>
         <li><a href="#programi">Programi</a></li>
+        <li><a href="knjiga.html">Knjiga</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul>
       <a href="kontakt.html" class="btn--shiny" style="justify-content:center;width:100%;box-sizing:border-box;">
@@ -710,62 +712,101 @@
   <section class="ebook-section" id="knjiga">
     <div class="ebook__bg" aria-hidden="true"></div>
     <div class="container">
-      <div class="ebook__inner">
 
-        <!-- Cover -->
-        <div class="ebook__visual fade-up">
-          <div class="ebook__cover-wrap">
+      <!-- Top: cover + intro -->
+      <div class="ebook__top fade-up">
+
+        <div class="ebook__visual">
+          <div class="ebook__cover-wrap" id="ebookCoverWrap">
             <div class="ebook__cover-glow" aria-hidden="true"></div>
-            <img
-              src="assets/ebook-cover-raw.png"
-              alt="Nova Naturopatija — Priručnik za empatiju tela, uma i duha"
-              class="ebook__cover"
-            />
+            <img src="assets/ebook-cover.png" alt="Nova Naturopatija — Priručnik za empatiju tela, uma i duha" class="ebook__cover" />
+            <div class="ebook__cover-shine" aria-hidden="true"></div>
           </div>
         </div>
 
-        <!-- Content -->
-        <div class="ebook__content fade-up">
-          <span class="section-label">Knjiga</span>
+        <div class="ebook__intro">
+          <span class="section-label">Knjiga &amp; Ebook</span>
           <h2 class="section-h2">Nova <em>Naturopatija</em></h2>
           <p class="ebook__tagline">Priručnik za empatiju tela, uma i duha</p>
-          <p class="ebook__desc">Prva srpska knjiga koja mapira psihosomatske obrasce kroz naturopatski pristup. Vodi vas korak po korak kroz jasno definisane faze ozdravljenja.</p>
-
-          <div class="ebook__phases">
-            <div class="ebook__phase"><span class="ebook__phase-num">01</span><span class="ebook__phase-name">Identifikacija</span><span class="ebook__phase-desc">Pronalaženje uzroka na svim nivoima</span></div>
-            <div class="ebook__phase"><span class="ebook__phase-num">02</span><span class="ebook__phase-name">Razumevanje</span><span class="ebook__phase-desc">Duboko simboličko značenje simptoma</span></div>
-            <div class="ebook__phase"><span class="ebook__phase-num">03</span><span class="ebook__phase-name">Korekcija</span><span class="ebook__phase-desc">Navike koje podržavaju ozdravljenje</span></div>
-            <div class="ebook__phase"><span class="ebook__phase-num">04</span><span class="ebook__phase-name">Rebalans</span><span class="ebook__phase-desc">Unutrašnji teren organizma se uravnotežuje</span></div>
-            <div class="ebook__phase"><span class="ebook__phase-num">05</span><span class="ebook__phase-name">Harmonizacija</span><span class="ebook__phase-desc">Psihosomatski obrasci se transformišu</span></div>
-          </div>
+          <p class="ebook__desc">Prva srpska knjiga koja mapira psihosomatske obrasce kroz naturopatski pristup. Detoks · Psihosomatika · Mudrost prirode · Nove terapijske tehnike.</p>
 
           <div class="ebook__pricing">
-            <div class="ebook__price-card">
+            <div class="ebook__price-card fade-up">
               <div class="ebook__price-top">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 <span>Digitalna verzija</span>
               </div>
               <div class="ebook__price-amount">990 <small>din</small></div>
-              <a href="../kontakt.html" class="btn btn--gold-outline btn--sm">
+              <a href="kontakt.html" class="btn btn--gold-outline btn--sm">
                 <span>Naruči</span>
                 <svg class="btn-arr" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
               </a>
             </div>
-            <div class="ebook__price-card ebook__price-card--print">
+            <div class="ebook__price-card ebook__price-card--print fade-up">
+              <div class="ebook__price-badge">Preporučeno</div>
               <div class="ebook__price-top">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                 <span>Štampana verzija</span>
               </div>
               <div class="ebook__price-amount">1.490 <small>din</small></div>
-              <a href="../kontakt.html" class="btn btn--gold btn--sm">
+              <a href="kontakt.html" class="btn btn--gold btn--sm">
                 <span>Naruči</span>
                 <svg class="btn-arr" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
               </a>
             </div>
           </div>
-        </div>
 
+          <a href="knjiga.html" class="ebook__more-link">
+            Saznaj više o knjizi
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+        </div>
       </div>
+
+      <!-- Bottom: 5 phase cards full width -->
+      <div class="ebook__phases-row">
+        <div class="ebook-phase-card fade-up">
+          <div class="ebook-phase-card__num">01</div>
+          <div class="ebook-phase-card__body">
+            <h4 class="ebook-phase-card__title">Identifikacija</h4>
+            <p class="ebook-phase-card__desc">Pronalaženje uzroka poremećaja na svim nivoima — fizičkom, emocionalnom i energetskom.</p>
+          </div>
+          <div class="ebook-phase-card__wm" aria-hidden="true">01</div>
+        </div>
+        <div class="ebook-phase-card fade-up">
+          <div class="ebook-phase-card__num">02</div>
+          <div class="ebook-phase-card__body">
+            <h4 class="ebook-phase-card__title">Razumevanje</h4>
+            <p class="ebook-phase-card__desc">Duboko simboličko značenje simptoma i njihova poruka za naše celokupno zdravlje.</p>
+          </div>
+          <div class="ebook-phase-card__wm" aria-hidden="true">02</div>
+        </div>
+        <div class="ebook-phase-card fade-up">
+          <div class="ebook-phase-card__num">03</div>
+          <div class="ebook-phase-card__body">
+            <h4 class="ebook-phase-card__title">Korekcija</h4>
+            <p class="ebook-phase-card__desc">Navike i način života koji aktivno podržavaju proces ozdravljenja iznutra.</p>
+          </div>
+          <div class="ebook-phase-card__wm" aria-hidden="true">03</div>
+        </div>
+        <div class="ebook-phase-card fade-up">
+          <div class="ebook-phase-card__num">04</div>
+          <div class="ebook-phase-card__body">
+            <h4 class="ebook-phase-card__title">Rebalans</h4>
+            <p class="ebook-phase-card__desc">Unutrašnji teren organizma se postepeno uravnotežuje i obnavlja svoju prirodnu ravnotežu.</p>
+          </div>
+          <div class="ebook-phase-card__wm" aria-hidden="true">04</div>
+        </div>
+        <div class="ebook-phase-card fade-up">
+          <div class="ebook-phase-card__num">05</div>
+          <div class="ebook-phase-card__body">
+            <h4 class="ebook-phase-card__title">Harmonizacija</h4>
+            <p class="ebook-phase-card__desc">Psihosomatski obrasci se transformišu — nastaje trajna promena na svim nivoima bića.</p>
+          </div>
+          <div class="ebook-phase-card__wm" aria-hidden="true">05</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1218,6 +1259,7 @@
               <li><a href="index.html">Početna</a></li>
               <li><a href="o-meni.html">O meni</a></li>
               <li><a href="#programi">Programi</a></li>
+              <li><a href="knjiga.html">Knjiga</a></li>
               <li><a href="kontakt.html">Kontakt</a></li>
             </ul>
           </div>

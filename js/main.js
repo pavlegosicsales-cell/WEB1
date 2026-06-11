@@ -826,6 +826,52 @@
     return svg;
   }
 
+  /* ── Ebook section: cover 3D tilt + phase cards ── */
+  function initEbookInteractivity() {
+    // Cover 3D tilt
+    var coverWrap = document.getElementById('ebookCoverWrap');
+    if (coverWrap) {
+      coverWrap.addEventListener('mouseenter', function() {
+        coverWrap.classList.add('is-hovered');
+      });
+      coverWrap.addEventListener('mouseleave', function() {
+        coverWrap.classList.remove('is-hovered');
+        coverWrap.style.setProperty('--ec-tilt-x', '0deg');
+        coverWrap.style.setProperty('--ec-tilt-y', '-6deg');
+      });
+      coverWrap.addEventListener('mousemove', function(e) {
+        var r = coverWrap.getBoundingClientRect();
+        var xPct = (e.clientX - r.left) / r.width;
+        var yPct = (e.clientY - r.top) / r.height;
+        coverWrap.style.setProperty('--ec-tilt-x', ((yPct - 0.5) * -12).toFixed(2) + 'deg');
+        coverWrap.style.setProperty('--ec-tilt-y', (((xPct - 0.5) * 14) - 6).toFixed(2) + 'deg');
+      });
+    }
+
+    // Phase cards
+    var cards = Array.from(document.querySelectorAll('.ebook-phase-card'));
+    if (!cards.length) return;
+    cards.forEach(function(card) {
+      card.addEventListener('mouseenter', function() {
+        card.classList.add('is-hovered');
+      });
+      card.addEventListener('mouseleave', function() {
+        card.classList.remove('is-hovered');
+        card.style.setProperty('--ep-tilt-x', '0deg');
+        card.style.setProperty('--ep-tilt-y', '0deg');
+      });
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var xPct = (e.clientX - r.left) / r.width;
+        var yPct = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ep-gx', (xPct * 100).toFixed(1) + '%');
+        card.style.setProperty('--ep-gy', (yPct * 100).toFixed(1) + '%');
+        card.style.setProperty('--ep-tilt-x', ((yPct - 0.5) * -8).toFixed(2) + 'deg');
+        card.style.setProperty('--ep-tilt-y', ((xPct - 0.5) * 9).toFixed(2) + 'deg');
+      });
+    });
+  }
+
   /* ── "Pet faza dubinskog reseta" phases — enhanced cards ── */
   function initPhasesCards() {
     var phases = Array.from(document.querySelectorAll('.prog-phase'));
@@ -1115,6 +1161,7 @@
   initAnimatedGrid();
   initTempoDotPattern();
   initPhasesCards();
+  initEbookInteractivity();
   initGlowButtons();
   initTypewriter();
   initProgramiShader();

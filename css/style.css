@@ -4221,7 +4221,7 @@ input, textarea, select { font-family: var(--sans); }
 .ebook-section {
   position: relative;
   background: var(--dark);
-  padding: 96px 0;
+  padding: 100px 0 80px;
   overflow: hidden;
   border-top: 1px solid rgba(201,160,54,0.08);
   border-bottom: 1px solid rgba(201,160,54,0.08);
@@ -4229,50 +4229,69 @@ input, textarea, select { font-family: var(--sans); }
 .ebook__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 20% 50%, rgba(26,92,56,0.28) 0%, transparent 70%),
-              radial-gradient(ellipse 50% 70% at 80% 50%, rgba(201,160,54,0.06) 0%, transparent 65%);
+  background:
+    radial-gradient(ellipse 80% 70% at 15% 40%, rgba(16,54,32,0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 55% at 85% 55%, rgba(201,160,54,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 50% 100%, rgba(201,160,54,0.04) 0%, transparent 60%);
   pointer-events: none;
 }
-.ebook__inner {
+
+/* ── TOP ROW: cover + intro ── */
+.ebook__top {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 320px 1fr;
   gap: 80px;
   align-items: center;
   position: relative;
   z-index: 1;
+  margin-bottom: 72px;
 }
-
-/* Cover */
 .ebook__visual { display: flex; justify-content: center; }
 .ebook__cover-wrap {
   position: relative;
-  width: 300px;
-  filter: drop-shadow(0 32px 64px rgba(0,0,0,0.6)) drop-shadow(0 0 40px rgba(201,160,54,0.18));
-  transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  width: 280px;
+  cursor: default;
+  --ec-tilt-x: 0deg;
+  --ec-tilt-y: -6deg;
+  transform: perspective(1000px) rotateX(var(--ec-tilt-x)) rotateY(var(--ec-tilt-y));
+  transition: transform 0.45s cubic-bezier(0.23,1,0.32,1), filter 0.45s ease;
+  filter: drop-shadow(0 32px 56px rgba(0,0,0,0.55)) drop-shadow(0 0 40px rgba(201,160,54,0.15));
 }
-.ebook__cover-wrap:hover {
-  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) translateY(-8px);
-  filter: drop-shadow(0 48px 80px rgba(0,0,0,0.65)) drop-shadow(0 0 60px rgba(201,160,54,0.28));
+.ebook__cover-wrap.is-hovered {
+  filter: drop-shadow(0 44px 80px rgba(0,0,0,0.65)) drop-shadow(0 0 64px rgba(201,160,54,0.28));
 }
 .ebook__cover {
   width: 100%;
-  border-radius: 4px 10px 10px 4px;
+  border-radius: 3px 10px 10px 3px;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 .ebook__cover-glow {
   position: absolute;
-  inset: -20px;
-  background: radial-gradient(ellipse at 50% 60%, rgba(201,160,54,0.22) 0%, transparent 65%);
+  inset: -24px;
+  background: radial-gradient(ellipse at 50% 65%, rgba(201,160,54,0.25) 0%, transparent 60%);
   pointer-events: none;
-  z-index: -1;
-  filter: blur(24px);
+  z-index: 0;
+  filter: blur(28px);
 }
+.ebook__cover-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 10px 10px 3px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(255,255,255,0.04) 100%);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.ebook__cover-wrap.is-hovered .ebook__cover-shine { opacity: 1; }
 
-/* Content */
+/* ── INTRO TEXT ── */
+.ebook__intro { position: relative; z-index: 1; }
 .ebook__tagline {
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
   color: var(--gold);
   margin: 8px 0 20px;
@@ -4282,81 +4301,75 @@ input, textarea, select { font-family: var(--sans); }
   color: var(--muted);
   line-height: 1.85;
   margin-bottom: 36px;
-  max-width: 480px;
-}
-.ebook__phases {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-bottom: 44px;
-  border-top: 1px solid rgba(201,160,54,0.12);
-}
-.ebook__phase {
-  display: grid;
-  grid-template-columns: 32px 130px 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(201,160,54,0.08);
-  transition: background 0.2s ease;
-}
-.ebook__phase:hover { background: rgba(201,160,54,0.04); }
-.ebook__phase-num {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(201,160,54,0.5);
-}
-.ebook__phase-name {
-  font-family: var(--serif);
-  font-size: 16px;
-  color: var(--warm);
-}
-.ebook__phase-desc {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
+  max-width: 500px;
 }
 
-/* Pricing */
+/* ── PRICING ── */
 .ebook__pricing {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  max-width: 460px;
+  max-width: 480px;
+  margin-bottom: 28px;
 }
 .ebook__price-card {
-  background: rgba(13,30,20,0.7);
+  position: relative;
+  background: rgba(11,26,17,0.75);
   border: 1px solid rgba(201,160,54,0.18);
-  border-radius: 14px;
-  padding: 22px 20px;
+  border-radius: 16px;
+  padding: 24px 22px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  overflow: hidden;
+}
+.ebook__price-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,160,54,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 .ebook__price-card:hover {
-  border-color: rgba(201,160,54,0.4);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(201,160,54,0.08);
+  border-color: rgba(201,160,54,0.38);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.45), 0 0 28px rgba(201,160,54,0.10);
+  transform: translateY(-6px);
 }
+.ebook__price-card:hover::before { opacity: 1; }
 .ebook__price-card--print {
-  border-color: rgba(201,160,54,0.32);
-  background: rgba(18,38,26,0.8);
+  border-color: rgba(201,160,54,0.30);
+  background: rgba(16,35,22,0.82);
+}
+.ebook__price-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(9,19,13,0.9);
+  background: linear-gradient(135deg, rgba(201,160,54,0.95), rgba(235,198,90,0.95));
+  padding: 3px 8px;
+  border-radius: 20px;
 }
 .ebook__price-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(201,160,54,0.7);
+  color: rgba(201,160,54,0.65);
 }
-.ebook__price-top svg { opacity: 0.7; }
+.ebook__price-top svg { opacity: 0.65; flex-shrink: 0; }
 .ebook__price-amount {
   font-family: var(--serif);
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 500;
   color: var(--warm);
   line-height: 1;
@@ -4367,24 +4380,143 @@ input, textarea, select { font-family: var(--sans); }
   color: var(--muted);
   font-weight: 400;
 }
-.ebook__price-card .btn { align-self: flex-start; margin-top: 4px; }
+.ebook__price-card .btn { align-self: flex-start; margin-top: 6px; }
 
-/* Responsive */
+.ebook__more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(201,160,54,0.7);
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+.ebook__more-link:hover { color: var(--gold); gap: 10px; }
+.ebook__more-link svg { transition: transform 0.25s ease; }
+.ebook__more-link:hover svg { transform: translateX(3px); }
+
+/* ── PHASE CARDS ROW ── */
+.ebook__phases-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.ebook-phase-card {
+  position: relative;
+  background: rgba(11,24,16,0.7);
+  border: 1px solid rgba(201,160,54,0.14);
+  border-radius: 16px;
+  padding: 28px 22px 24px;
+  overflow: hidden;
+  cursor: default;
+  --ep-tilt-x: 0deg;
+  --ep-tilt-y: 0deg;
+  --ep-gx: 50%;
+  --ep-gy: 50%;
+  transform: perspective(600px) rotateX(var(--ep-tilt-x)) rotateY(var(--ep-tilt-y)) translateY(0);
+  transition: transform 0.18s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  backdrop-filter: blur(6px);
+}
+/* Top shimmer line */
+.ebook-phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(201,160,54,0.7) 50%, transparent 90%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+/* Cursor-following glow */
+.ebook-phase-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 140px at var(--ep-gx) var(--ep-gy), rgba(201,160,54,0.10) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.ebook-phase-card.is-hovered {
+  border-color: rgba(201,160,54,0.36);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.45), 0 0 32px rgba(201,160,54,0.09);
+  transform: perspective(600px) rotateX(var(--ep-tilt-x)) rotateY(var(--ep-tilt-y)) translateY(-10px);
+}
+.ebook-phase-card.is-hovered::before { opacity: 1; }
+.ebook-phase-card.is-hovered::after { opacity: 1; }
+
+.ebook-phase-card__num {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(201,160,54,0.5);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.ebook-phase-card__body { position: relative; z-index: 1; }
+.ebook-phase-card__title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--warm);
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+.ebook-phase-card__desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+/* Watermark */
+.ebook-phase-card__wm {
+  position: absolute;
+  bottom: -12px; right: 10px;
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(201,160,54,0.04);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  transition: color 0.35s ease;
+  user-select: none;
+}
+.ebook-phase-card.is-hovered .ebook-phase-card__wm { color: rgba(201,160,54,0.09); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .ebook__phases-row { grid-template-columns: repeat(3, 1fr); }
+  .ebook__phases-row .ebook-phase-card:nth-child(4),
+  .ebook__phases-row .ebook-phase-card:nth-child(5) {
+    grid-column: span 1;
+  }
+}
 @media (max-width: 1060px) {
-  .ebook__inner { grid-template-columns: 300px 1fr; gap: 56px; }
-  .ebook__cover-wrap { width: 240px; }
+  .ebook__top { grid-template-columns: 260px 1fr; gap: 56px; }
+  .ebook__cover-wrap { width: 220px; }
+}
+@media (max-width: 900px) {
+  .ebook__phases-row { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .ebook__inner { grid-template-columns: 1fr; gap: 48px; }
+  .ebook-section { padding: 72px 0 60px; }
+  .ebook__top { grid-template-columns: 1fr; gap: 48px; margin-bottom: 48px; }
   .ebook__visual { justify-content: center; }
-  .ebook__cover-wrap { width: 220px; transform: none; }
-  .ebook__cover-wrap:hover { transform: translateY(-6px); }
-  .ebook__phase { grid-template-columns: 28px 110px 1fr; }
+  .ebook__cover-wrap { width: 200px; }
   .ebook__pricing { max-width: 100%; }
-  .ebook-section { padding: 72px 0; }
+  .ebook__phases-row { grid-template-columns: 1fr 1fr; gap: 12px; }
 }
 @media (max-width: 480px) {
-  .ebook__phase { grid-template-columns: 26px 1fr; gap: 8px; }
-  .ebook__phase-desc { display: none; }
-  .ebook__pricing { grid-template-columns: 1fr; max-width: 320px; }
+  .ebook__pricing { grid-template-columns: 1fr; max-width: 340px; }
+  .ebook__phases-row { grid-template-columns: 1fr; }
+  .ebook-phase-card { padding: 22px 18px 20px; }
 }
