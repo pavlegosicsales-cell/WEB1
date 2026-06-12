@@ -2191,6 +2191,7 @@ input, textarea, select { font-family: var(--sans); }
   display: block;
   margin-top: 0;
 }
+.hero__h1-static { display: none; }
 .word-cycle {
   position: relative;
   display: inline-block;
@@ -2489,28 +2490,36 @@ input, textarea, select { font-family: var(--sans); }
   .nav__cta       { display: none; }
   .hamburger      { display: flex; }
 
-  /* ── Hero: subtle tree on mobile, creds/signature hidden ── */
+  /* ── Hero: mobile stacked layout — kicker top, tree middle, h1+tagline below ── */
   .hero__name-signature { display: none !important; }
   .hero__cred-float     { display: none !important; }
+
+  /* Hero: flex-start so content stacks from the top */
+  .hero {
+    justify-content: flex-start;
+    min-height: 130vh;
+  }
+
+  /* Tree positioned between kicker and h1, fully visible */
   .hero__tree-wrap {
-    top: var(--nav-h);
+    top: calc(var(--nav-h) + 56px);
     left: 0;
     right: 0;
-    bottom: 110px;
+    height: 60vh;
+    bottom: auto;
     width: 100%;
     z-index: 0;
-    opacity: 0.28;
+    opacity: 1;
     justify-content: center;
   }
   .hero__tree { height: 100%; width: auto; mix-blend-mode: normal; }
-  .hero__inner    { padding: 80px 20px 140px; position: relative; z-index: 2; }
-  .hero__h1       { font-size: clamp(42px, 10vw, 60px); }
 
-  /* Hero: kicker and tagline as mini glass cards on mobile */
+  /* Inner: small top padding — kicker sits just below nav */
+  .hero__inner { padding: 14px 20px 60px; position: relative; z-index: 2; }
+
+  /* Kicker: glass card, sits above the tree */
   .hero__kicker::before { content: none; }
-  .hero__tagline::before { display: none; }
   .hero__kicker .kicker-line { display: none; }
-
   .hero__kicker {
     width: fit-content;
     padding: 6px 14px;
@@ -2519,9 +2528,22 @@ input, textarea, select { font-family: var(--sans); }
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 160, 54, 0.26);
     border-radius: 8px;
-    margin-bottom: 22px;
+    margin-bottom: 0;
     gap: 0;
   }
+
+  /* H1: pushed below the tree, centered, static text on mobile */
+  .hero__h1 {
+    font-size: clamp(34px, 9vw, 52px);
+    text-align: center;
+    margin-top: calc(60vh + 28px);
+  }
+  .hero__h1::before { display: none; }
+  .hero__h1 .word-cycle { display: none; }
+  .hero__h1 .hero__h1-static { display: inline; }
+
+  /* Tagline: glass card, below h1 */
+  .hero__tagline::before { display: none; }
   .hero__tagline {
     padding: 8px 16px;
     background: rgba(9, 19, 13, 0.52);
@@ -2529,20 +2551,11 @@ input, textarea, select { font-family: var(--sans); }
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 160, 54, 0.26);
     border-radius: 8px;
-    margin-bottom: 32px;
+    margin-top: 18px;
+    margin-bottom: 28px;
+    text-align: center;
   }
 
-  /* Dark blur mask behind the h1 on mobile */
-  .hero__h1::before {
-    content: '';
-    position: absolute;
-    inset: -18px 12px;
-    background: rgba(9, 19, 13, 0.92);
-    filter: blur(56px);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: -1;
-  }
   .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
   .hero__actions  { flex-wrap: wrap; }
   .creds          { grid-template-columns: 1fr; }
