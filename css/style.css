@@ -2503,10 +2503,10 @@ input, textarea, select { font-family: var(--sans); }
   /* Tree positioned between kicker and tagline, fully visible.
      Pushed down so the kicker pill sits clearly above the canopy. */
   .hero__tree-wrap {
-    top: calc(var(--nav-h) + 96px);
+    top: calc(var(--nav-h) + 132px);
     left: 0;
     right: 0;
-    height: 54vh;
+    height: 52vh;
     bottom: auto;
     width: 100%;
     z-index: 0;
@@ -2551,7 +2551,7 @@ input, textarea, select { font-family: var(--sans); }
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(201, 160, 54, 0.26);
     border-radius: 8px;
-    margin-top: calc(54vh + 18px);
+    margin-top: calc(52vh + 6px);
     margin-bottom: 0;
     text-align: center;
   }
