@@ -2500,12 +2500,13 @@ input, textarea, select { font-family: var(--sans); }
     min-height: 130vh;
   }
 
-  /* Tree positioned between kicker and tagline, fully visible */
+  /* Tree positioned between kicker and tagline, fully visible.
+     Pushed down so the kicker pill sits clearly above the canopy. */
   .hero__tree-wrap {
-    top: calc(var(--nav-h) + 54px);
+    top: calc(var(--nav-h) + 96px);
     left: 0;
     right: 0;
-    height: 58vh;
+    height: 54vh;
     bottom: auto;
     width: 100%;
     z-index: 0;
@@ -2538,12 +2539,19 @@ input, textarea, select { font-family: var(--sans); }
     text-align: center;
   }
 
-  /* Tagline: centered, just below the roots */
+  /* Tagline: glass pill, centered, hugging the roots */
   .hero__tagline::before { display: none; }
   .hero__tagline {
     order: 2;
     align-self: center;
-    margin-top: calc(58vh + 8px);
+    width: fit-content;
+    padding: 8px 16px;
+    background: rgba(9, 19, 13, 0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(201, 160, 54, 0.26);
+    border-radius: 8px;
+    margin-top: calc(54vh + 18px);
     margin-bottom: 0;
     text-align: center;
   }
