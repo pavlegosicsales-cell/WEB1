@@ -2516,7 +2516,7 @@ input, textarea, select { font-family: var(--sans); }
   .hero__tree { height: 100%; width: auto; mix-blend-mode: normal; }
 
   /* Inner: small top padding — kicker sits just below nav */
-  .hero__inner { padding: 14px 20px 60px; position: relative; z-index: 2; }
+  .hero__inner { padding: 2px 20px 60px; position: relative; z-index: 2; }
 
   /* Flex column so we can reorder: kicker, tagline, h1, desc... */
   .hero__left { display: flex; flex-direction: column; }
