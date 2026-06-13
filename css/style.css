@@ -2490,7 +2490,7 @@ input, textarea, select { font-family: var(--sans); }
   .nav__cta       { display: none; }
   .hamburger      { display: flex; }
 
-  /* ── Hero: mobile stacked layout — kicker top, tree middle, h1+tagline below ── */
+  /* ── Hero: mobile stacked layout — kicker → tree → tagline → h1 → desc ── */
   .hero__name-signature { display: none !important; }
   .hero__cred-float     { display: none !important; }
 
@@ -2500,12 +2500,12 @@ input, textarea, select { font-family: var(--sans); }
     min-height: 130vh;
   }
 
-  /* Tree positioned between kicker and h1, fully visible */
+  /* Tree positioned between kicker and tagline, fully visible */
   .hero__tree-wrap {
-    top: calc(var(--nav-h) + 56px);
+    top: calc(var(--nav-h) + 54px);
     left: 0;
     right: 0;
-    height: 60vh;
+    height: 58vh;
     bottom: auto;
     width: 100%;
     z-index: 0;
@@ -2517,10 +2517,15 @@ input, textarea, select { font-family: var(--sans); }
   /* Inner: small top padding — kicker sits just below nav */
   .hero__inner { padding: 14px 20px 60px; position: relative; z-index: 2; }
 
-  /* Kicker: glass card, sits above the tree */
+  /* Flex column so we can reorder: kicker, tagline, h1, desc... */
+  .hero__left { display: flex; flex-direction: column; }
+
+  /* Kicker: glass card, centered above the tree */
   .hero__kicker::before { content: none; }
   .hero__kicker .kicker-line { display: none; }
   .hero__kicker {
+    order: 1;
+    align-self: center;
     width: fit-content;
     padding: 6px 14px;
     background: rgba(9, 19, 13, 0.52);
@@ -2530,34 +2535,33 @@ input, textarea, select { font-family: var(--sans); }
     border-radius: 8px;
     margin-bottom: 0;
     gap: 0;
+    text-align: center;
   }
 
-  /* H1: pushed below the tree, centered, static text on mobile */
-  .hero__h1 {
-    font-size: clamp(34px, 9vw, 52px);
+  /* Tagline: centered, just below the roots */
+  .hero__tagline::before { display: none; }
+  .hero__tagline {
+    order: 2;
+    align-self: center;
+    margin-top: calc(58vh + 8px);
+    margin-bottom: 0;
     text-align: center;
-    margin-top: calc(60vh + 28px);
+  }
+
+  /* H1: below tagline, left-aligned (as original), static text on mobile */
+  .hero__h1 {
+    order: 3;
+    font-size: clamp(34px, 9vw, 52px);
+    text-align: left;
+    margin-top: 22px;
   }
   .hero__h1::before { display: none; }
   .hero__h1 .word-cycle { display: none; }
   .hero__h1 .hero__h1-static { display: inline; }
 
-  /* Tagline: glass card, below h1 */
-  .hero__tagline::before { display: none; }
-  .hero__tagline {
-    padding: 8px 16px;
-    background: rgba(9, 19, 13, 0.52);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(201, 160, 54, 0.26);
-    border-radius: 8px;
-    margin-top: 18px;
-    margin-bottom: 28px;
-    text-align: center;
-  }
-
-  .hero__trust    { grid-template-columns: 1fr; gap: 8px; }
-  .hero__actions  { flex-wrap: wrap; }
+  .hero__desc     { order: 4; }
+  .hero__actions  { order: 5; flex-wrap: wrap; }
+  .hero__trust    { order: 6; grid-template-columns: 1fr; gap: 8px; }
   .creds          { grid-template-columns: 1fr; }
 
   /* ── Section spacing ── */
