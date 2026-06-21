@@ -123,7 +123,8 @@
     fadeEls.forEach(el => observer.observe(el));
   }
 
-  /* ── Contact form ── */
+  /* ── Contact form — real email via Web3Forms ── */
+  const CONTACT_WEB3FORMS_KEY = '0b03f895-39b6-4e52-98c8-f279ba377f4f';
   const form = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
   if (form && submitBtn) {
@@ -135,18 +136,66 @@
         [name, email].forEach(f => { if (!f.value.trim()) f.classList.add('error'); });
         return;
       }
+
+      const programSel = form.querySelector('#program');
+      const messageEl = form.querySelector('#message');
+      const programText = programSel && programSel.value
+        ? (programSel.options[programSel.selectedIndex].text)
+        : 'Nije izabran';
+      const messageText = messageEl ? messageEl.value.trim() : '';
+
       submitBtn.disabled = true;
+      submitBtn.classList.remove('sent', 'error');
       submitBtn.textContent = 'Slanje...';
-      setTimeout(() => {
-        submitBtn.textContent = 'Poruka poslata ✓';
-        submitBtn.classList.add('sent');
-        form.reset();
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Pošalji poruku';
-          submitBtn.classList.remove('sent');
-        }, 4000);
-      }, 900);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: CONTACT_WEB3FORMS_KEY,
+          subject: 'Novi upit sa sajta: ' + name.value.trim(),
+          from_name: 'Therapeutica Kontakt',
+          name: name.value.trim(),
+          email: email.value.trim(),
+          program: programText,
+          message:
+            'Novi upit sa kontakt forme:\n\n' +
+            'Ime: ' + name.value.trim() + '\n' +
+            'Email: ' + email.value.trim() + '\n' +
+            'Program: ' + programText + '\n\n' +
+            'Poruka:\n' + (messageText || '(bez poruke)')
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            submitBtn.textContent = 'Poruka poslata ✓';
+            submitBtn.classList.add('sent');
+            form.reset();
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Pošalji poruku';
+              submitBtn.classList.remove('sent');
+            }, 4000);
+          } else {
+            submitBtn.textContent = 'Greška, pokušajte ponovo';
+            submitBtn.classList.add('error');
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Pošalji poruku';
+              submitBtn.classList.remove('error');
+            }, 4000);
+          }
+        })
+        .catch(() => {
+          submitBtn.textContent = 'Greška pri slanju';
+          submitBtn.classList.add('error');
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Pošalji poruku';
+            submitBtn.classList.remove('error');
+          }, 4000);
+        });
     });
     form.querySelectorAll('input, textarea').forEach(f => {
       f.addEventListener('input', () => f.classList.remove('error'));
@@ -845,8 +894,8 @@
     var formatOpts = Array.from(modal.querySelectorAll('.order-format__opt'));
     var selectedFmt = 'digital';
 
-    /* ─── Replace this key: sign up free at web3forms.com/get-access-key ─── */
-    var WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+    /* ─── Web3Forms access key (routes to dadablombardelli@gmail.com) ─── */
+    var WEB3FORMS_KEY = '0b03f895-39b6-4e52-98c8-f279ba377f4f';
 
     function openModal(fmt) {
       selectedFmt = fmt || 'digital';
